@@ -1,6 +1,12 @@
 # Pausing-Has-Consequences
-GBJAM 9
----------
+
+- GBJAM 9
+
+## Unity
+
+Unity 2020.3.18f1
+
+## Game Description
 Opening the pause menu will not actually pause the game.
 
 Pausing pulls up a side menu so you can still see the game.
