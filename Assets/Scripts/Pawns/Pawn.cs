@@ -12,6 +12,8 @@ namespace PHC.Pawns
         /// </summary>
         private Vector2 m_actualPosition;
 
+        [Range(0f, 10f)]
+        public float m_speed;
         public Vector2 Position
         {
             get
@@ -45,7 +47,7 @@ namespace PHC.Pawns
         /// </summary>
         public void Move(Vector2 direction)
         {
-            Position = Position + direction * Time.deltaTime;
+            Position = Position + direction * Time.deltaTime * m_speed;
         }
 
         /// <summary>
