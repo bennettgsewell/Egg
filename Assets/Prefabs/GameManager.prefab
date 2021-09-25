@@ -43,3 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b3258c8041f70489416cfea7241c1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_tiles:
+  - {fileID: 7887673399913949077, guid: cfffd7761360cf74d9a691d5246edfd4, type: 3}
+  - {fileID: 8162734612572433595, guid: cfffd7761360cf74d9a691d5246edfd4, type: 3}
+  - {fileID: 8227466153711589364, guid: cfffd7761360cf74d9a691d5246edfd4, type: 3}
