@@ -26,6 +26,8 @@ namespace PHC
             // Disable if a Camera wasn't found.
             if (m_camera == null)
                 enabled = false;
+
+            Application.targetFrameRate = 59;
         }
 
         // Update every frame in case the user changes window size.
