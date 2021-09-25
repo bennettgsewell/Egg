@@ -84,6 +84,7 @@ namespace PHC.Pawns
                 m_holding = item;
                 m_holding.m_beingHeldBy = this;
                 m_holding.MoveWithCharacter();
+                m_holding.PickedUp();
             }
         }
 
@@ -96,6 +97,7 @@ namespace PHC.Pawns
             {
                 m_holding.m_beingHeldBy = null;
                 m_holding = null;
+                m_holding.Dropped();
             }
         }
     }
