@@ -20,29 +20,36 @@ namespace PHC.Environment
 
         private Material m_spriteMaterial;
 
-        public Map(Location mapSize, Sprite[] tileSprites, Material spriteMaterial)
+        /// <summary>
+        /// The size of the Map.
+        /// </summary>
+        public Location Size { private set; get; }
+
+        public Map(Location size, Sprite[] tileSprites, Material spriteMaterial)
         {
+            Size = size;
+
             m_spriteMaterial = spriteMaterial;
             m_tileSprites = tileSprites;
-             
+
             // The Tile types as bytes.
-            m_mapTiles = new Tile[mapSize.X, mapSize.Y];
+            m_mapTiles = new Tile[size.X, size.Y];
 
             // The GameObjects to visually represent the Sprites.
-            m_mapTileGameObjects = new GameObject[mapSize.X, mapSize.Y];
+            m_mapTileGameObjects = new GameObject[size.X, size.Y];
 
             // The root GameObject for the Map.
             m_mapRootObject = new GameObject();
 
-            for (Location tilePos = new Location(0, 0); tilePos.X < mapSize.X; tilePos.X++)
-            {
-                for (tilePos.Y = 0; tilePos.Y < mapSize.Y; tilePos.Y++)
-                {
+            for (Location tilePos = new Location(0, 0); tilePos.X < size.X; tilePos.X++)
+                for (tilePos.Y = 0; tilePos.Y < size.Y; tilePos.Y++)
                     m_mapTiles[tilePos.X, tilePos.Y] = Random.Range(0, 2) == 1 ? Tile.Floor : Tile.Wall;
 
+            m_mapTiles[0, 0] = Tile.Floor;
+
+            for (Location tilePos = new Location(0, 0); tilePos.X < size.X; tilePos.X++)
+                for (tilePos.Y = 0; tilePos.Y < size.Y; tilePos.Y++)
                     CreateTileGameObject(tilePos);
-                }
-            }
         }
 
         /// <summary>
@@ -53,10 +60,10 @@ namespace PHC.Environment
             Tile tileType = m_mapTiles[pos.X, pos.Y];
 
             //If this is going to be a wall
-            if(tileType == Tile.Wall)
+            if (tileType == Tile.Wall)
             {
                 //And there's a wall just south of this one.
-                if(pos.Y > 0 && m_mapTiles[pos.X, pos.Y-1] == Tile.Wall)
+                if (pos.Y > 0 && m_mapTiles[pos.X, pos.Y - 1] == Tile.Wall)
                 {
                     tileType = Tile.Ceiling;
                 }
