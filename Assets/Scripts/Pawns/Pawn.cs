@@ -1,3 +1,4 @@
+using PHC.Environment;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +25,19 @@ namespace PHC.Pawns
             set
             {
                 m_actualPosition = value;
-                transform.position = RoundToPixel(value);
+
+                // The new position MUST be inside the map.
+                Map map = GameManager.Instance?.TheMap;
+                if (map != null)
+                {
+                    Location size = map.Size;
+
+                    //Clamp it to be inside the map.
+                    m_actualPosition.x = Mathf.Clamp(m_actualPosition.x, 0, size.X-1);
+                    m_actualPosition.y = Mathf.Clamp(m_actualPosition.y, 0, size.Y-1);
+                }
+
+                transform.position = RoundToPixel(m_actualPosition);
             }
         }
 
