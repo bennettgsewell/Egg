@@ -146,11 +146,11 @@ Shader "Sprites/Gamboi"
 			//The brightness of the pixel itself.
 			float brightness = (color.r + color.g + color.b) / 3;
 
-			if (brightness < 0.1)
+			if (brightness < 0.2)
 				color.rgb = _GameboiColor1.rgb;
 			else if (brightness < 0.4)
 				color.rgb = _GameboiColor2.rgb;
-			else if (brightness < 0.7)
+			else if (brightness < 0.8)
 				color.rgb = _GameboiColor3.rgb;
 			else
 				color.rgb = _GameboiColor4.rgb;
