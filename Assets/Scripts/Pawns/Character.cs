@@ -19,6 +19,9 @@ namespace PHC.Pawns
         // If set the chracter is holding this large item.
         private LargeItem m_holding = null;
 
+        // The animator component.
+        public Animator m_animator;
+
         /// <summary>
         /// Returns true if this Character is holding a LargeItem.
         /// </summary>
@@ -31,7 +34,16 @@ namespace PHC.Pawns
         {
             Position = Position + direction * Time.deltaTime * m_speed;
 
-            //If holding a LargeItem, move it with us.
+            // Determine the direction of the movement for the Animator.
+            if(m_animator != null)
+            {
+                m_animator.SetBool("walk_east", direction.x > 0);
+                m_animator.SetBool("walk_west", direction.x < 0);
+                m_animator.SetBool("walk_north", direction.y > 0);
+                m_animator.SetBool("walk_south", direction.y < 0);
+            }
+
+            // If holding a LargeItem, move it with us.
             m_holding?.MoveWithCharacter();
         }
 

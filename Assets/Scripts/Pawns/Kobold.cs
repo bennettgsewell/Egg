@@ -124,7 +124,7 @@ namespace PHC.Pawns
             }
         }
 
-        private void Update()
+        protected void Update()
         {
             // Move every frame.
             Move(m_moving);
