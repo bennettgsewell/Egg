@@ -125,7 +125,7 @@ Shader "Sprites/Gamboi"
 			OUT.color = IN.color * _RendererColor;
 
 			//#ifdef PIXELSNAP_ON
-			OUT.vertex = UnityPixelSnap(OUT.vertex);
+			//OUT.vertex = UnityPixelSnap(OUT.vertex);
 			//#endif
 
 			return OUT;

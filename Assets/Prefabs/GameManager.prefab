@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7397926562872245115}
   - component: {fileID: 1619359520800676313}
+  - component: {fileID: 3164755343270472335}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -47,3 +48,17 @@ MonoBehaviour:
   - {fileID: 7887673399913949077, guid: cfffd7761360cf74d9a691d5246edfd4, type: 3}
   - {fileID: 8162734612572433595, guid: cfffd7761360cf74d9a691d5246edfd4, type: 3}
   - {fileID: 8227466153711589364, guid: cfffd7761360cf74d9a691d5246edfd4, type: 3}
+  m_spriteMaterial: {fileID: 2100000, guid: 9b4578a2f94a61d4aad6cfe8525fd85e, type: 2}
+--- !u!114 &3164755343270472335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2812249156893015099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e84b558dba2aa7945ac5ad513b8730d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_randomizeHue: 0

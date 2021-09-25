@@ -17,6 +17,7 @@ namespace PHC.Art
                 GameboiTheme.s_defaultGameboyTheme.ApplyColorTheme();
         }
 
+        /*
         private void Update()
         {
             if (Input.GetKeyUp(KeyCode.R))
@@ -24,5 +25,6 @@ namespace PHC.Art
             if (Input.GetKeyUp(KeyCode.G))
                 GameboiTheme.s_defaultGameboyTheme.ApplyColorTheme();
         }
+        */
     }
 }

@@ -18,9 +18,12 @@ namespace PHC.Environment
         // The GameObject for each tile.
         GameObject[,] m_mapTileGameObjects;
 
-        public Map(Location mapSize, Sprite[] mileSprites)
+        private Material m_spriteMaterial;
+
+        public Map(Location mapSize, Sprite[] tileSprites, Material spriteMaterial)
         {
-            m_tileSprites = mileSprites;
+            m_spriteMaterial = spriteMaterial;
+            m_tileSprites = tileSprites;
              
             // The Tile types as bytes.
             m_mapTiles = new Tile[mapSize.X, mapSize.Y];
@@ -68,11 +71,13 @@ namespace PHC.Environment
 
             // Add the Sprite
             SpriteRenderer renderer = tileGO.AddComponent<SpriteRenderer>();
+            //renderer.sharedMaterial = m_spriteMaterial;
             renderer.sprite = sprite;
+            renderer.sortingLayerName = "Background";
 
             // Set the location and parent.
             tileGO.transform.SetParent(m_mapRootObject.transform);
-            tileGO.transform.localPosition = new Vector3(pos.X, pos.Y, 0);
+            tileGO.transform.position = new Vector3(pos.X, pos.Y, 0);
         }
     }
 }
