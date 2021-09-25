@@ -12,8 +12,9 @@ namespace PHC.Pawns
         /// </summary>
         private Vector2 m_actualPosition;
 
-        [Range(0f, 10f)]
-        public float m_speed;
+        /// <summary>
+        /// The position of the pawn.
+        /// </summary>
         public Vector2 Position
         {
             get
@@ -28,7 +29,7 @@ namespace PHC.Pawns
         }
 
         /// <summary>
-        /// The current position of the pawn in pixels on screen.
+        /// The display position of the pawn in pixels on screen.
         /// </summary>
         public Vector2 PixelPosition
         {
@@ -42,12 +43,9 @@ namespace PHC.Pawns
             }
         }
 
-        /// <summary>
-        /// Moves the character in a direction.
-        /// </summary>
-        public void Move(Vector2 direction)
+        private void Start()
         {
-            Position = Position + direction * Time.deltaTime * m_speed;
+            Position = transform.position;
         }
 
         /// <summary>

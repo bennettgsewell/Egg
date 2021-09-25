@@ -38,6 +38,9 @@ TextureImporter:
   - first:
       213: -3102994270238535240
     second: dude_north_2
+  - first:
+      213: -4572274602858593414
+    second: egg
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -374,6 +377,27 @@ TextureImporter:
       bones: []
       spriteID: 8b11c5ec623ffe4d0800000000000000
       internalID: -3102994270238535240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: egg
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 16
+        height: 16
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a73c21149740c80c0800000000000000
+      internalID: -4572274602858593414
       vertices: []
       indices: 
       edges: []
