@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 245485667853806156}
   - component: {fileID: 5317604584330639771}
+  - component: {fileID: 4400966623831232484}
   m_Layer: 0
   m_Name: Kobold
   m_TagString: Untagged
@@ -63,6 +64,18 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &4400966623831232484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155168336906949993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fff55162fa9dfa4faed8023d5f07e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2994961944470043213
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,7 +209,7 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.69
+    x: 0
     y: 0
     width: 1
     height: 1

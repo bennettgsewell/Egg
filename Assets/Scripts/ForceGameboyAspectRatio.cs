@@ -7,13 +7,13 @@ namespace PHC
     public class ForceGameboyAspectRatio : MonoBehaviour
     {
         // The original Gameboy screen resolution.
-        const int SCREEN_WIDTH = 160, SCREEN_HEIGHT = 144;
+        public const int SCREEN_WIDTH = 160, SCREEN_HEIGHT = 144;
 
         // Pixels per unit.
-        const int PPU = 16;
+        public const int PPU = 16;
 
         // The screen ratio.
-        const float CORRECT_ASPECT = SCREEN_HEIGHT / (float)SCREEN_WIDTH;
+        public const float CORRECT_ASPECT = SCREEN_HEIGHT / (float)SCREEN_WIDTH;
 
         // The camera on this GameObject.
         private Camera m_camera;
