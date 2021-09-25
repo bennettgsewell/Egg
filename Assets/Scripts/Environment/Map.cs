@@ -86,5 +86,13 @@ namespace PHC.Environment
             tileGO.transform.SetParent(m_mapRootObject.transform);
             tileGO.transform.position = new Vector3(pos.X, pos.Y, 0);
         }
+
+        /// <summary>
+        /// Gets the Tile in this location.
+        /// </summary>
+        public Tile GetTile(Location pos)
+        {
+            return m_mapTiles[pos.X, pos.Y];
+        }
     }
 }
