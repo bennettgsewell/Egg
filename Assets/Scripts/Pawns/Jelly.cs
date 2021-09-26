@@ -8,12 +8,10 @@ namespace PHC.Pawns
 {
     public class Jelly : Monster
     {
-        Location[] path;
-
-        private void Start()
-        {
-            base.Start();
-            SetDestination(new Location(7, 1));
-        }
+        //private void Start()
+        //{
+        //    base.Start();
+        //    SetDestination(new Location(7, 1));
+        //}
     }
 }

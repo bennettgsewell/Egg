@@ -96,3 +96,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_pawnSizeDiameter: 0.75
+  m_monsterPrefab: {fileID: 7631028843912254703, guid: 90991eccfe7024a43a8d35ceec60fc67, type: 3}
+  m_spawnAmount: 3
