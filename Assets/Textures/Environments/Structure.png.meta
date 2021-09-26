@@ -97,10 +97,10 @@ TextureImporter:
     second: Door_W_Open
   - first:
       213: -8597766436869005560
-    second: Door_E_Close
+    second: Door_W_Closed
   - first:
       213: -3258026195303996866
-    second: Door_E_Open
+    second: Door_W_Open
   - first:
       213: 3459080553315743225
     second: Door_S_Closed
@@ -844,15 +844,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Door_W_Open
+      name: Door_E_Open
       rect:
         serializedVersion: 2
         x: 112
         y: 96
         width: 16
         height: 16
-      alignment: 1
-      pivot: {x: 0, y: 1}
+      alignment: 6
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -865,7 +865,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Door_E_Close
+      name: Door_W_Closed
       rect:
         serializedVersion: 2
         x: 128
@@ -886,7 +886,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Door_E_Open
+      name: Door_W_Open
       rect:
         serializedVersion: 2
         x: 144
