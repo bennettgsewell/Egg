@@ -113,6 +113,18 @@ TextureImporter:
   - first:
       213: 3573450297045514166
     second: Door_N_Open
+  - first:
+      213: 4749667501915987406
+    second: Door_E_Locked
+  - first:
+      213: 8848543129057913933
+    second: Door_W_Locked
+  - first:
+      213: -5768689166340853332
+    second: Door_S_Locked
+  - first:
+      213: 2076252646463846028
+    second: Door_N_Locked
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -974,6 +986,90 @@ TextureImporter:
       bones: []
       spriteID: 6b779e9bc12779130800000000000000
       internalID: 3573450297045514166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Door_E_Locked
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 16
+        height: 16
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecd5bec9d653ae140800000000000000
+      internalID: 4749667501915987406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Door_W_Locked
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 64
+        width: 16
+        height: 16
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4c683328175cca70800000000000000
+      internalID: 8848543129057913933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Door_S_Locked
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 48
+        width: 16
+        height: 16
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca1fb9c54cf71ffa0800000000000000
+      internalID: -5768689166340853332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Door_N_Locked
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 48
+        width: 16
+        height: 16
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c86317018c450dc10800000000000000
+      internalID: 2076252646463846028
       vertices: []
       indices: 
       edges: []
