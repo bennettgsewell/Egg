@@ -7,6 +7,9 @@ namespace PHC.Pawns
 {
     public abstract class Pawn : MonoBehaviour
     {
+        [SerializeField]
+        protected AudioSource m_audioSource;
+
         /// <summary>
         /// The internal position of the pawn in floating space.
         /// This is not going to be the same as the position being displayed on screen.
@@ -91,6 +94,11 @@ namespace PHC.Pawns
             pos.y += 0.5f;
 
             return new Location(pos);
+        }
+
+        protected void PlaySound(AudioClip clip)
+        {
+            m_audioSource?.PlayOneShot(clip);
         }
     }
 }

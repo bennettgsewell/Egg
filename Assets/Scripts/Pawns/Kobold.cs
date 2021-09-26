@@ -38,7 +38,7 @@ namespace PHC.Pawns
 
             pauseAction.performed += (c) =>
             {
-                GameObject.FindObjectOfType<Jelly>()?.SetDestinationToClosestPawnOfType<Egg>(out Egg _);
+                GameObject.FindObjectOfType<Jelly>()?.Kill();
             };
 
             openInventoryAction.performed += (c) =>
@@ -141,6 +141,11 @@ namespace PHC.Pawns
         {
             // Move every frame.
             Move(m_moving);
+        }
+
+        public override void Kill()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

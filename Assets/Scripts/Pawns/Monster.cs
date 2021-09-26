@@ -57,6 +57,9 @@ namespace PHC.Pawns
         /// </summary>
         private float m_tinyExploreUntil = 0;
 
+        [SerializeField]
+        private AudioClip m_deathSound;
+
         /// <summary>
         /// Tells the Monster to move to a location if possible.
         /// </summary>
@@ -127,7 +130,7 @@ namespace PHC.Pawns
             WalkPoint nextWalkPoint = closestWalkPoint.GetPathToAnotherWalkPoint()?.Item1;
 
             // Attempt to path there.
-            if(nextWalkPoint != null)
+            if (nextWalkPoint != null)
                 SetDestination(nextWalkPoint.GetCurrentTile());
 
             // If this fails, idle instead.
@@ -261,6 +264,13 @@ namespace PHC.Pawns
                 SetPath(path);
             else
                 SetPath(null);
+        }
+
+        public override void Kill()
+        {
+            FlickerAnimation.StartFlickerOn(gameObject, true, 0.5f);
+            PlaySound(m_deathSound);
+            enabled = false;
         }
     }
 }
