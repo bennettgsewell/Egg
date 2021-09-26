@@ -10,13 +10,21 @@ namespace PHC.Pawns
     /// </summary>
     public class Character : Pawn
     {
+        /// <summary>
+        /// Cardinal directions.
+        /// </summary>
         public enum Direction
         {
             South = 0,// 0 for default
-            North,
-            East,
-            West
+            North = 1,
+            East = 2,
+            West = 3
         }
+
+        /// <summary>
+        /// Returns a random Direction enum.
+        /// </summary>
+        public Direction GetRandomDirection() => (Direction)Random.Range(0, 4);
 
         // The current speed of the character.
         [Range(0f, 10f)]
@@ -24,6 +32,11 @@ namespace PHC.Pawns
 
         [Range(0f, 5f)]
         public float m_pickupDistance;
+
+        /// <summary>
+        /// The Pawn size in diameter.
+        /// </summary>
+        public float m_pawnSizeDiameter = (ForceGameboyAspectRatio.PPU - 4) / (float)ForceGameboyAspectRatio.PPU;
 
         // If set the chracter is holding this large item.
         private LargeItem m_holding = null;

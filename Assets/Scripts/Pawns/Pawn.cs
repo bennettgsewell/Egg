@@ -14,11 +14,6 @@ namespace PHC.Pawns
         private Vector2 m_actualPosition;
 
         /// <summary>
-        /// The Pawn size in diameter.
-        /// </summary>
-        public float m_pawnSizeDiameter = (ForceGameboyAspectRatio.PPU - 4) / (float)ForceGameboyAspectRatio.PPU;
-
-        /// <summary>
         /// The position of the pawn.
         /// </summary>
         public Vector2 Position
