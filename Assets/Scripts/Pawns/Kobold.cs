@@ -38,12 +38,12 @@ namespace PHC.Pawns
 
             pauseAction.performed += (c) =>
             {
-                GameObject.FindObjectOfType<Jelly>()?.SetDestination(GetCurrentTile());
+                GameObject.FindObjectOfType<Jelly>()?.SetDestinationToClosestPawnOfType<Egg>(out Egg _);
             };
 
             openInventoryAction.performed += (c) =>
             {
-                GameObject.FindObjectOfType<Jelly>()?.NavigateToEggHole();
+                GameObject.FindObjectOfType<Jelly>()?.SetDestinationToClosestPawnOfType<EggHole>(out EggHole _);
             };
 
             // Enable the player InputActionMap

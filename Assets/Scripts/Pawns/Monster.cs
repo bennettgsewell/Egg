@@ -93,13 +93,18 @@ namespace PHC.Pawns
         }
 
         /// <summary>
-        /// Sets the destination to nearest EggHole.
+        /// Sets the destination of this Monster to the closest Pawn of Type T.
         /// </summary>
-        public void NavigateToEggHole()
+        /// <typeparam name="T">The Type of Pawn to look for.</typeparam>
+        /// <param name="targetObj">Outputs the object itself if one was found.</param>
+        public void SetDestinationToClosestPawnOfType<T>(out T targetObj) where T : Pawn
         {
-            EggHole hole = EggHole.FindClosestHole(GetCurrentTile(), out Location[] path);
-            if(hole != null && path != null)
+            targetObj = Map.FindClosestComponent<T>(GetCurrentTile(), out Location[] path);
+
+            if (targetObj != null && path != null)
                 SetPath(path);
+            else
+                SetPath(null);
         }
     }
 }

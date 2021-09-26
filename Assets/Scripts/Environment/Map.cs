@@ -1,3 +1,4 @@
+using PHC.Pawns;
 using PHC.Utility;
 using System.Collections;
 using System.Collections.Generic;
@@ -225,6 +226,47 @@ namespace PHC.Environment
             Location w = current;
             w.X--;
             GenerateAStarDistances(w, distance + 1, distances, target);
+        }
+
+
+        /// <summary>
+        /// Returns the closest Pawn Object from a location.
+        /// </summary>
+        /// <param name="toLocation">The location to search from.</param>
+        /// <param name="path">The path from the toLocation to the closest Object of Type.</param>
+        /// <returns>The Object and the path to it.</returns>
+        public static T FindClosestComponent<T>(Location toLocation, out Location[] path) where T : Pawn
+        {
+            Map map = GameManager.Instance?.TheMap;
+
+            T[] allObjectsOfType = GameObject.FindObjectsOfType<T>();
+
+            path = null;
+
+            // If no EggHoles were found, return nothing.
+            if (map == null || allObjectsOfType == null || allObjectsOfType.Length == 0)
+                return null;
+
+            T outputObject = null;
+
+            foreach (T hole in allObjectsOfType)
+            {
+                Location[] potentialPath = map.GetPath(toLocation, hole.GetCurrentTile());
+
+                // If not path, skip.
+                if (potentialPath == null)
+                    continue;
+
+                // If this path is closer than the previous ones.
+                if (path == null || potentialPath.Length < path.Length)
+                {
+                    // Set this as the closest.
+                    path = potentialPath;
+                    outputObject = hole;
+                }
+            }
+
+            return outputObject;
         }
     }
 }
