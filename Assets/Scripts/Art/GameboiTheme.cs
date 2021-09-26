@@ -106,7 +106,7 @@ namespace PHC.Art
             Shader.SetGlobalColor(@"_GameboiColor3", m_color3);
             Shader.SetGlobalColor(@"_GameboiColor4", m_color4);
             if (Camera.main != null)
-                Camera.main.backgroundColor = m_color4;
+                Camera.main.backgroundColor = m_color3;
         }
     }
 
