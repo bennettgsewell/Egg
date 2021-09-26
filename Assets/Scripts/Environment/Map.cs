@@ -139,6 +139,11 @@ namespace PHC.Environment
         /// </summary>
         public Tile GetTile(Location pos)
         {
+            // If the position is out of bounds, return blocking.
+            if (pos.X < 0 || pos.Y < 0
+                || pos.X >= m_mapTiles.GetLongLength(0) || pos.Y >= m_mapTiles.GetLongLength(1))
+                return Tile.Blocking;
+
             return m_mapTiles[pos.X, pos.Y];
         }
     }

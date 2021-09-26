@@ -14,6 +14,11 @@ namespace PHC.Pawns
         private Vector2 m_actualPosition;
 
         /// <summary>
+        /// The Pawn size in diameter.
+        /// </summary>
+        public float m_pawnSizeDiameter = (ForceGameboyAspectRatio.PPU - 4) / (float)ForceGameboyAspectRatio.PPU;
+
+        /// <summary>
         /// The position of the pawn.
         /// </summary>
         public Vector2 Position
@@ -76,6 +81,21 @@ namespace PHC.Pawns
         public Vector2 RoundToPixel(Vector2 value)
         {
             return new Vector2(RoundToPixel(value.x), RoundToPixel(value.y));
+        }
+
+        /// <summary>
+        /// Returns the current Tile Location that this Pawn is on.
+        /// </summary>
+        public Location GetCurrentTile()
+        {
+            // Get the current position of the Pawn.
+            Vector2 pos = Position;
+
+            // Get the middle of the Tile we're on.
+            pos.x += 0.5f;
+            pos.y += 0.5f;
+
+            return new Location(pos);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PHC.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,6 +32,11 @@ namespace PHC.Environment
         public Location(float x, float y) : this((long)x, (long)y) { }
 
         public Location(Vector2 position) : this(position.x, position.y) { }
+
+        public Location RoundFrom(Vector2 position) => new Location(position.Round());
+
+        public static bool operator ==(Location a, Location b) => a.X == b.X && a.Y == b.Y;
+        public static bool operator !=(Location a, Location b) => a.X != b.X || a.Y != b.Y;
 
         public override string ToString() => $"Location({X}, {Y})";
     }
