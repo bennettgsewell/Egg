@@ -146,5 +146,84 @@ namespace PHC.Environment
 
             return m_mapTiles[pos.X, pos.Y];
         }
+
+        /// <summary>
+        /// Returns an A* path between two map Locations.
+        /// </summary>
+        public Location[] GetPath(Location a, Location b)
+        {
+            // The steps from point A
+            ushort[,] distances = new ushort[Size.X, Size.Y];
+
+            // Make all of the distances there max values.
+            for (long x = 0; x < distances.GetLongLength(0); x++)
+                for (long y = 0; y < distances.GetLongLength(1); y++)
+                    distances[x, y] = ushort.MaxValue;
+
+            // Generate all the distance values.
+            GenerateAStarDistances(a, 0, distances, b);
+
+            // Return nothing if there's no path back.
+            ushort distance = distances[b.X, b.Y];
+            if (distance == ushort.MaxValue)
+                return null;
+
+            // Find the shortest path back.
+            Location[] path = new Location[distance];
+            path[path.Length - 1] = b;
+            for (int i = path.Length - 2; i >= 0; i--)
+            {
+                distance--;
+                path[i] = path[i + 1];
+                if (distances[path[i].X, path[i].Y + 1] == distance)
+                    path[i].Y++;
+                else if (distances[path[i].X, path[i].Y - 1] == distance)
+                    path[i].Y--;
+                else if (distances[path[i].X + 1, path[i].Y] == distance)
+                    path[i].X++;
+                else if (distances[path[i].X - 1, path[i].Y] == distance)
+                    path[i].X--;
+            }
+
+            return path;
+        }
+
+        private void GenerateAStarDistances(Location current, int distance, ushort[,] distances, Location target)
+        {
+            // The Tile must be valid.
+            if (GetTile(current) != Tile.Empty)
+                return;
+
+            if (distance < distances[current.X, current.Y])
+            {
+                distances[current.X, current.Y] = (ushort)distance;
+            }
+            else
+            {
+                // This is a longer or equally distant path than another we've found.
+                return;
+            }
+
+            // If this is the target location, return.
+            if (current == target)
+                return;
+
+            // Start scanning the next tiles in a clockwise fashion.
+            Location n = current;
+            n.Y++;
+            GenerateAStarDistances(n, distance + 1, distances, target);
+
+            Location e = current;
+            e.X++;
+            GenerateAStarDistances(e, distance + 1, distances, target);
+
+            Location s = current;
+            s.Y--;
+            GenerateAStarDistances(s, distance + 1, distances, target);
+
+            Location w = current;
+            w.X--;
+            GenerateAStarDistances(w, distance + 1, distances, target);
+        }
     }
 }
