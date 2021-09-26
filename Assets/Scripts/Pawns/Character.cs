@@ -74,59 +74,117 @@ namespace PHC.Pawns
                 FacingDirection = Direction.South;
             }
 
-            /*
             // If the Character is on a Map make sure it's not moving into a wall.
             Map map = GameManager.Instance?.TheMap;
             if (map != null)
             {
-                // Get the current display position of the character.
-                Vector2 pixelPosition = PixelPosition;
-                pixelPosition.x += 0.5f;
-                Location currentTileLocation = new Location(pixelPosition);
+                // Get the current Tile Location that the player is on.
+                Location currentTileLocation = GetCurrentTile();
 
-                // Get the location of the Tile we're moving towards.
-                Location nextTileLocation = currentTileLocation;
+                float pawnSizeRadius = m_pawnSizeDiameter / 2f;
+
+                Vector2 newPosCenterOfTile = newPos + new Vector2(0.5f, 0.5f);
+
                 switch (FacingDirection)
                 {
                     case Direction.North:
-                        nextTileLocation.Y++;
+                        // If the top left or top right of Pawn is inside a blocking tile.
+                        if(map.GetTile(new Location(newPosCenterOfTile + new Vector2(-pawnSizeRadius, pawnSizeRadius))) == Tile.Blocking
+                         || map.GetTile(new Location(newPosCenterOfTile + new Vector2(pawnSizeRadius, pawnSizeRadius))) == Tile.Blocking)
+                        {
+                            // If the Tile directly above is open
+                            Location tileDirectlyAbove = new Location(newPosCenterOfTile + new Vector2(0, pawnSizeRadius));
+                            if (map.GetTile(tileDirectlyAbove) == Tile.Empty)
+                            {
+                                // Get the point inside the current tile.
+                                float insideTile = newPosCenterOfTile.x % 1;
+                                insideTile -= 0.5f;
+
+                                // If it's close enough to be inside the tile above
+                                if(Mathf.Abs(insideTile) <= pawnSizeRadius)
+                                {
+                                    break;
+                                }
+                            }
+
+                            newPos.y = Mathf.Floor(newPos.y);
+                            newPos.y += 1f - m_pawnSizeDiameter - (1 / (float)ForceGameboyAspectRatio.PPU);
+                        }
                         break;
                     case Direction.South:
-                        nextTileLocation.Y--;
+                        // If the bottom left or bottom right of Pawn is inside a blocking tile.
+                        if (map.GetTile(new Location(newPosCenterOfTile + new Vector2(-pawnSizeRadius, -pawnSizeRadius))) == Tile.Blocking
+                         || map.GetTile(new Location(newPosCenterOfTile + new Vector2(pawnSizeRadius, -pawnSizeRadius))) == Tile.Blocking)
+                        {
+                            // If the Tile directly below is open
+                            Location tileDirectlyBelow = new Location(newPosCenterOfTile + new Vector2(0, -pawnSizeRadius));
+                            if (map.GetTile(tileDirectlyBelow) == Tile.Empty)
+                            {
+                                // Get the point inside the current tile.
+                                float insideTile = newPosCenterOfTile.x % 1;
+                                insideTile -= 0.5f;
+
+                                // If it's close enough to be inside the tile above
+                                if (Mathf.Abs(insideTile) <= pawnSizeRadius)
+                                {
+                                    break;
+                                }
+                            }
+
+                            newPos.y = Mathf.Ceil(newPos.y);
+                            newPos.y -= 1f - m_pawnSizeDiameter - (1 / (float)ForceGameboyAspectRatio.PPU);
+                        }
                         break;
                     case Direction.East:
-                        nextTileLocation.X++;
+                        // If the top right or bottom right of Pawn is inside a blocking tile.
+                        if (map.GetTile(new Location(newPosCenterOfTile + new Vector2(pawnSizeRadius, pawnSizeRadius))) == Tile.Blocking
+                         || map.GetTile(new Location(newPosCenterOfTile + new Vector2(pawnSizeRadius, -pawnSizeRadius))) == Tile.Blocking)
+                        {
+                            // If the Tile directly east is open
+                            Location tileDirectlyEast = new Location(newPosCenterOfTile + new Vector2(pawnSizeRadius, 0));
+                            if (map.GetTile(tileDirectlyEast) == Tile.Empty)
+                            {
+                                // Get the point inside the current tile.
+                                float insideTile = newPosCenterOfTile.y % 1;
+                                insideTile -= 0.5f;
+
+                                // If it's close enough to be inside the tile above
+                                if (Mathf.Abs(insideTile) <= pawnSizeRadius)
+                                {
+                                    break;
+                                }
+                            }
+
+                            newPos.x = Mathf.Floor(newPos.x);
+                            newPos.x += 1f - m_pawnSizeDiameter - (1 / (float)ForceGameboyAspectRatio.PPU);
+                        }
                         break;
                     case Direction.West:
-                        nextTileLocation.X--;
+                        // If the top left or bottom left of Pawn is inside a blocking tile.
+                        if (map.GetTile(new Location(newPosCenterOfTile + new Vector2(-pawnSizeRadius, pawnSizeRadius))) == Tile.Blocking
+                         || map.GetTile(new Location(newPosCenterOfTile + new Vector2(-pawnSizeRadius, -pawnSizeRadius))) == Tile.Blocking)
+                        {
+                            // If the Tile directly west is open
+                            Location tileDirectlyEast = new Location(newPosCenterOfTile + new Vector2(-pawnSizeRadius, 0));
+                            if (map.GetTile(tileDirectlyEast) == Tile.Empty)
+                            {
+                                // Get the point inside the current tile.
+                                float insideTile = newPosCenterOfTile.y % 1;
+                                insideTile -= 0.5f;
+
+                                // If it's close enough to be inside the tile above
+                                if (Mathf.Abs(insideTile) <= pawnSizeRadius)
+                                {
+                                    break;
+                                }
+                            }
+
+                            newPos.x = Mathf.Ceil(newPos.x);
+                            newPos.x -= 1f - m_pawnSizeDiameter - (1 / (float)ForceGameboyAspectRatio.PPU);
+                        }
                         break;
                 }
-
-                // The type of Tile we're moving towards.
-                Tile nextTile = map.GetTile(nextTileLocation);
-
-                // If the next Tile is not a floor tile, you can't walk on it.
-                if (nextTile != Tile.Floor)
-                {
-                    switch (FacingDirection)
-                    {
-                        case Direction.North:
-                            newPos.y = Mathf.Ceil(oldPos.y);
-                            break;
-                        case Direction.South:
-                            newPos.y = Mathf.Floor(oldPos.y);
-                            break;
-                        case Direction.East:
-                            newPos.y = Mathf.Ceil(oldPos.y);
-                            break;
-                        case Direction.West:
-                            newPos.x = Mathf.Floor(oldPos.x);
-                            break;
-
-                    }
-                }
             }
-            */
 
             // Move the character to its new position.
             Position = newPos;

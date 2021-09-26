@@ -410,7 +410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6817922827924772227, guid: 557ea01163ed19742bb70ac498bd5322, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6817922827924772227, guid: 557ea01163ed19742bb70ac498bd5322, type: 3}
       propertyPath: m_LocalPosition.z
@@ -504,6 +504,14 @@ PrefabInstance:
     - target: {fileID: 1609613808314555213, guid: 9399eef14f74e1b499cd715f274a9cfe, type: 3}
       propertyPath: m_Name
       value: SimpleRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719614421945813966, guid: 9399eef14f74e1b499cd715f274a9cfe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719614421945813966, guid: 9399eef14f74e1b499cd715f274a9cfe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9399eef14f74e1b499cd715f274a9cfe, type: 3}
