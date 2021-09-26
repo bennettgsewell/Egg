@@ -67,7 +67,7 @@ TextureImporter:
     second: Floor
   - first:
       213: -697594351944134315
-    second: Roof
+    second: Roof_NS
   - first:
       213: -4315232978730882536
     second: Roof_inner_NE
@@ -97,10 +97,10 @@ TextureImporter:
     second: Door_W_Open
   - first:
       213: -8597766436869005560
-    second: Door_E_Close
+    second: Door_W_Closed
   - first:
       213: -3258026195303996866
-    second: Door_E_Open
+    second: Door_W_Open
   - first:
       213: 3459080553315743225
     second: Door_S_Closed
@@ -125,6 +125,9 @@ TextureImporter:
   - first:
       213: 2076252646463846028
     second: Door_N_Locked
+  - first:
+      213: 1008256293749237528
+    second: Roof_EW
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -655,7 +658,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Roof
+      name: Roof_NS
       rect:
         serializedVersion: 2
         x: 80
@@ -844,15 +847,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Door_W_Open
+      name: Door_E_Open
       rect:
         serializedVersion: 2
         x: 112
         y: 96
         width: 16
         height: 16
-      alignment: 1
-      pivot: {x: 0, y: 1}
+      alignment: 6
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -865,7 +868,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Door_E_Close
+      name: Door_W_Closed
       rect:
         serializedVersion: 2
         x: 128
@@ -886,7 +889,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Door_E_Open
+      name: Door_W_Open
       rect:
         serializedVersion: 2
         x: 144
@@ -1070,6 +1073,27 @@ TextureImporter:
       bones: []
       spriteID: c86317018c450dc10800000000000000
       internalID: 2076252646463846028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Roof_EW
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 112
+        width: 16
+        height: 16
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 817a977d1cb0efd00800000000000000
+      internalID: 1008256293749237528
       vertices: []
       indices: 
       edges: []
