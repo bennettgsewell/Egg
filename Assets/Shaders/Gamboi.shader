@@ -23,10 +23,10 @@ Shader "Sprites/Gamboi"
 		[PerRendererData]
 		_EnableExternalAlpha("Enable External Alpha", Float) = 0
 
-			//_GameboiColor1("Gameboy Color 1", Color) = (0,0,0,1)
-			//_GameboiColor2("Gameboy Color 2", Color) = (0.33,0.33,0.33,1)
-			//_GameboiColor3("Gameboy Color 3", Color) = (0.66,0.66,0.66,1)
-			//_GameboiColor4("Gameboy Color 4", Color) = (1,1,1,1)
+		//_GameboiColor1("Gameboy Color 1", Color) = (0,0,0,1)
+		//_GameboiColor2("Gameboy Color 2", Color) = (0.33,0.33,0.33,1)
+		//_GameboiColor3("Gameboy Color 3", Color) = (0.66,0.66,0.66,1)
+		//_GameboiColor4("Gameboy Color 4", Color) = (1,1,1,1)
 	}
 
 		SubShader
