@@ -91,5 +91,20 @@ namespace PHC.Pawns
                     break;
             }
         }
+
+        /// <summary>
+        /// Sets the destination of this Monster to the closest Pawn of Type T.
+        /// </summary>
+        /// <typeparam name="T">The Type of Pawn to look for.</typeparam>
+        /// <param name="targetObj">Outputs the object itself if one was found.</param>
+        public void SetDestinationToClosestPawnOfType<T>(out T targetObj) where T : Pawn
+        {
+            targetObj = Map.FindClosestComponent<T>(GetCurrentTile(), out Location[] path);
+
+            if (targetObj != null && path != null)
+                SetPath(path);
+            else
+                SetPath(null);
+        }
     }
 }
