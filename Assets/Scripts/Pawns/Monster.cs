@@ -91,5 +91,15 @@ namespace PHC.Pawns
                     break;
             }
         }
+
+        /// <summary>
+        /// Sets the destination to nearest EggHole.
+        /// </summary>
+        public void NavigateToEggHole()
+        {
+            EggHole hole = EggHole.FindClosestHole(GetCurrentTile(), out Location[] path);
+            if(hole != null && path != null)
+                SetPath(path);
+        }
     }
 }

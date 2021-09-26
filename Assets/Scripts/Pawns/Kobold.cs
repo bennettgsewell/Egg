@@ -41,6 +41,11 @@ namespace PHC.Pawns
                 GameObject.FindObjectOfType<Jelly>()?.SetDestination(GetCurrentTile());
             };
 
+            openInventoryAction.performed += (c) =>
+            {
+                GameObject.FindObjectOfType<Jelly>()?.NavigateToEggHole();
+            };
+
             // Enable the player InputActionMap
             actionMap.Enable();
         }
