@@ -36,7 +36,10 @@ namespace PHC.Pawns
 
             useAction.performed += UseAction_performed;
 
-            pauseAction.performed += (c) => GameboiTheme.s_defaultGameboyTheme.GetRandomTint().ApplyColorTheme();
+            pauseAction.performed += (c) =>
+            {
+                GameObject.FindObjectOfType<Jelly>()?.SetDestination(GetCurrentTile());
+            };
 
             // Enable the player InputActionMap
             actionMap.Enable();

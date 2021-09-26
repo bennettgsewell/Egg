@@ -19,12 +19,12 @@ namespace PHC.Environment
         // The GameObject for each tile.
         GameObject[,] m_mapTileGameObjects;
 
-        private Material m_spriteMaterial;
-
         /// <summary>
-        /// The size of the Map.
+        /// The Size of the map.
         /// </summary>
-        public Location Size { private set; get; }
+        public Location Size => new Location(m_mapTiles.GetLongLength(0), m_mapTiles.GetLongLength(1));
+
+        private Material m_spriteMaterial;
 
         /// <summary>
         /// Creates a Map from scratch.
@@ -34,8 +34,6 @@ namespace PHC.Environment
         /// <param name="size">The size of the map to create.</param>
         public Map(Location size, Sprite[] tileSprites, Material spriteMaterial)
         {
-            Size = size;
-
             m_spriteMaterial = spriteMaterial;
             m_tileSprites = tileSprites;
 
@@ -85,9 +83,6 @@ namespace PHC.Environment
                 if (size.Y < position.y)
                     size.Y = (long)position.y;
             }
-
-            // Now we know the total size of the map in the positive axis(s)
-            Size = size;
 
             m_mapTiles = new Tile[size.X + 1, size.Y + 1];
 
@@ -145,6 +140,91 @@ namespace PHC.Environment
                 return Tile.Blocking;
 
             return m_mapTiles[pos.X, pos.Y];
+        }
+
+        /// <summary>
+        /// Returns an A* path between two map Locations.
+        /// </summary>
+        public Location[] GetPath(Location a, Location b)
+        {
+            // If we're already at point b.
+            if(a == b)
+            {
+                return null;
+            }
+
+            // The steps from point A
+            ushort[,] distances = new ushort[m_mapTiles.GetLongLength(0), m_mapTiles.GetLongLength(1)];
+
+            // Make all of the distances there max values.
+            for (long x = 0; x < distances.GetLongLength(0); x++)
+                for (long y = 0; y < distances.GetLongLength(1); y++)
+                    distances[x, y] = ushort.MaxValue;
+
+            // Generate all the distance values.
+            GenerateAStarDistances(a, 0, distances, b);
+
+            // Return nothing if there's no path back.
+            ushort distance = distances[b.X, b.Y];
+            if (distance == ushort.MaxValue)
+                return null;
+
+            // Find the shortest path back.
+            Location[] path = new Location[distance];
+            path[path.Length - 1] = b;
+            for (int i = path.Length - 2; i >= 0; i--)
+            {
+                distance--;
+                path[i] = path[i + 1];
+                if (distances[path[i].X, path[i].Y + 1] == distance)
+                    path[i].Y++;
+                else if (distances[path[i].X, path[i].Y - 1] == distance)
+                    path[i].Y--;
+                else if (distances[path[i].X + 1, path[i].Y] == distance)
+                    path[i].X++;
+                else if (distances[path[i].X - 1, path[i].Y] == distance)
+                    path[i].X--;
+            }
+
+            return path;
+        }
+
+        private void GenerateAStarDistances(Location current, int distance, ushort[,] distances, Location target)
+        {
+            // The Tile must be valid.
+            if (GetTile(current) != Tile.Empty)
+                return;
+
+            if (distance < distances[current.X, current.Y])
+            {
+                distances[current.X, current.Y] = (ushort)distance;
+            }
+            else
+            {
+                // This is a longer or equally distant path than another we've found.
+                return;
+            }
+
+            // If this is the target location, return.
+            if (current == target)
+                return;
+
+            // Start scanning the next tiles in a clockwise fashion.
+            Location n = current;
+            n.Y++;
+            GenerateAStarDistances(n, distance + 1, distances, target);
+
+            Location e = current;
+            e.X++;
+            GenerateAStarDistances(e, distance + 1, distances, target);
+
+            Location s = current;
+            s.Y--;
+            GenerateAStarDistances(s, distance + 1, distances, target);
+
+            Location w = current;
+            w.X--;
+            GenerateAStarDistances(w, distance + 1, distances, target);
         }
     }
 }
