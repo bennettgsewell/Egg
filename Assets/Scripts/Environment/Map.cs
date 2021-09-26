@@ -19,12 +19,12 @@ namespace PHC.Environment
         // The GameObject for each tile.
         GameObject[,] m_mapTileGameObjects;
 
-        private Material m_spriteMaterial;
-
         /// <summary>
-        /// The size of the Map.
+        /// The Size of the map.
         /// </summary>
-        public Location Size { private set; get; }
+        public Location Size => new Location(m_mapTiles.GetLongLength(0), m_mapTiles.GetLongLength(1));
+
+        private Material m_spriteMaterial;
 
         /// <summary>
         /// Creates a Map from scratch.
@@ -34,8 +34,6 @@ namespace PHC.Environment
         /// <param name="size">The size of the map to create.</param>
         public Map(Location size, Sprite[] tileSprites, Material spriteMaterial)
         {
-            Size = size;
-
             m_spriteMaterial = spriteMaterial;
             m_tileSprites = tileSprites;
 
@@ -85,9 +83,6 @@ namespace PHC.Environment
                 if (size.Y < position.y)
                     size.Y = (long)position.y;
             }
-
-            // Now we know the total size of the map in the positive axis(s)
-            Size = size;
 
             m_mapTiles = new Tile[size.X + 1, size.Y + 1];
 
@@ -152,8 +147,14 @@ namespace PHC.Environment
         /// </summary>
         public Location[] GetPath(Location a, Location b)
         {
+            // If we're already at point b.
+            if(a == b)
+            {
+                return null;
+            }
+
             // The steps from point A
-            ushort[,] distances = new ushort[Size.X, Size.Y];
+            ushort[,] distances = new ushort[m_mapTiles.GetLongLength(0), m_mapTiles.GetLongLength(1)];
 
             // Make all of the distances there max values.
             for (long x = 0; x < distances.GetLongLength(0); x++)

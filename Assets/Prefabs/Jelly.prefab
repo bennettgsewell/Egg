@@ -96,6 +96,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_pawnSizeDiameter: 0.75
-  m_speed: 0
-  m_pickupDistance: 0
+  m_speed: 2
+  m_pickupDistance: 1
   m_animator: {fileID: 0}

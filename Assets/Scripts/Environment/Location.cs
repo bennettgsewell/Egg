@@ -38,6 +38,8 @@ namespace PHC.Environment
         public static bool operator ==(Location a, Location b) => a.X == b.X && a.Y == b.Y;
         public static bool operator !=(Location a, Location b) => a.X != b.X || a.Y != b.Y;
 
+        public static implicit operator Vector2(Location value) => new Vector2(value.X, value.Y);
+
         public override string ToString() => $"Location({X}, {Y})";
     }
 }

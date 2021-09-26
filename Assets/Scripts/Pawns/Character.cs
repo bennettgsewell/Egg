@@ -44,31 +44,36 @@ namespace PHC.Pawns
         /// <summary>
         /// Moves the character in a direction.
         /// </summary>
-        public void Move(Vector2 direction)
+        public void Move(Vector2 destinationDelta)
         {
+            float willMove = Time.deltaTime * m_speed;
+
+            if (destinationDelta.magnitude > willMove)
+                destinationDelta = destinationDelta.normalized * willMove;
+
             Vector2 oldPos = Position;
 
             // Move the character.
-            Vector2 newPos = oldPos + direction * Time.deltaTime * m_speed;
+            Vector2 newPos = oldPos + destinationDelta;
 
             // Determine the direction the Character is moving in.
             bool moving = false;
-            if (direction.x > 0)
+            if (destinationDelta.x > 0)
             {
                 moving = true;
                 FacingDirection = Direction.East;
             }
-            else if (direction.x < 0)
+            else if (destinationDelta.x < 0)
             {
                 moving = true;
                 FacingDirection = Direction.West;
             }
-            else if (direction.y > 0)
+            else if (destinationDelta.y > 0)
             {
                 moving = true;
                 FacingDirection = Direction.North;
             }
-            else if (direction.y < 0)
+            else if (destinationDelta.y < 0)
             {
                 moving = true;
                 FacingDirection = Direction.South;
@@ -229,8 +234,8 @@ namespace PHC.Pawns
             if (m_holding != null)
             {
                 m_holding.m_beingHeldBy = null;
-                m_holding = null;
                 m_holding.Dropped();
+                m_holding = null;
             }
         }
     }
