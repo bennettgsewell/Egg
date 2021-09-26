@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4400966623831232484}
   - component: {fileID: 989367230795188889}
   - component: {fileID: 4017385298100923211}
-  - component: {fileID: -4612318069864816083}
   m_Layer: 0
   m_Name: Kobold
   m_TagString: Untagged
@@ -47,9 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fff55162fa9dfa4faed8023d5f07e79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_pawnSize: 0.875
+  m_audioSource: {fileID: 0}
   m_speed: 4.76
   m_pickupDistance: 1
+  m_startingHealth: 0
+  m_pawnSizeDiameter: 0.75
   m_animator: {fileID: 989367230795188889}
   m_inputActionSet: {fileID: -944628639613478452, guid: b15e18b18b502c148a2e30037b43515f, type: 3}
 --- !u!95 &989367230795188889
@@ -109,7 +110,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 455491321
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 10
   m_Sprite: {fileID: 3024715386312023624, guid: bcc4560a78837b2419bb2eaced416ec0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -122,22 +123,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &-4612318069864816083
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1155168336906949993}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!1 &8462913062467062287
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,6 +134,7 @@ GameObject:
   - component: {fileID: 8142148842909188094}
   - component: {fileID: 6207389037294420738}
   - component: {fileID: 3196200309507546380}
+  - component: {fileID: 5657188828113435102}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -225,3 +211,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36477d83fd1189f49a18362460e620fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!81 &5657188828113435102
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8462913062467062287}
+  m_Enabled: 1

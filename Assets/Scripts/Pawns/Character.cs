@@ -8,7 +8,7 @@ namespace PHC.Pawns
     /// <summary>
     /// A character that can walk around.
     /// </summary>
-    public class Character : Pawn
+    public abstract class Character : Pawn
     {
         /// <summary>
         /// Cardinal directions.
@@ -32,6 +32,10 @@ namespace PHC.Pawns
 
         [Range(0f, 5f)]
         public float m_pickupDistance;
+
+        public int m_startingHealth;
+
+        public int CurrentHealth { private set; get; }
 
         /// <summary>
         /// The Pawn size in diameter.
@@ -251,5 +255,31 @@ namespace PHC.Pawns
                 m_holding = null;
             }
         }
+
+        protected void Start()
+        {
+            base.Start();
+
+            CurrentHealth = m_startingHealth;
+        }
+
+        /// <summary>
+        /// Deals damage to this Character.
+        /// </summary>
+        /// <param name="amount">The amount of damage to deal.</param>
+        private void TakeDamage(int amount)
+        {
+            CurrentHealth -= amount;
+            if (CurrentHealth < 0)
+            {
+                CurrentHealth = 0;
+                Kill();
+            }
+        }
+
+        /// <summary>
+        /// Kills the Character.
+        /// </summary>
+        public abstract void Kill();
     }
 }
