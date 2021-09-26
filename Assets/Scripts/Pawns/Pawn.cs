@@ -56,7 +56,7 @@ namespace PHC.Pawns
             }
         }
 
-        private void Start()
+        protected void Start()
         {
             Position = transform.position;
         }
