@@ -31,7 +31,7 @@ namespace PHC
                 throw new Exception("More than one GameManager!");
 
             Instance = this;
-            TheMap = new Map(new Location(32, 32), m_tiles, m_spriteMaterial);
+            //TheMap = new Map(new Location(32, 32), m_tiles, m_spriteMaterial);
         }
 
     }

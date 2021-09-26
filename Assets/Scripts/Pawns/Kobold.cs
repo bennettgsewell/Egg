@@ -1,3 +1,4 @@
+using PHC.Art;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,6 +33,8 @@ namespace PHC.Pawns
             moveAction.canceled += _ => m_moving = Vector2.zero;
 
             useAction.performed += UseAction_performed;
+
+            pauseAction.performed += (c) => GameboiTheme.s_defaultGameboyTheme.GetRandomTint().ApplyColorTheme();
 
             // Enable the player InputActionMap
             actionMap.Enable();

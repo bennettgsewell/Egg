@@ -78,7 +78,7 @@ namespace PHC.Environment
 
             // Add the Sprite
             SpriteRenderer renderer = tileGO.AddComponent<SpriteRenderer>();
-            //renderer.sharedMaterial = m_spriteMaterial;
+            renderer.sharedMaterial = m_spriteMaterial;
             renderer.sprite = sprite;
             renderer.sortingLayerName = "Background";
 
