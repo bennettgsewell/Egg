@@ -31,5 +31,7 @@ namespace PHC.Environment
         public Location(float x, float y) : this((long)x, (long)y) { }
 
         public Location(Vector2 position) : this(position.x, position.y) { }
+
+        public override string ToString() => $"Location({X}, {Y})";
     }
 }

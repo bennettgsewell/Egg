@@ -19,6 +19,8 @@ namespace PHC.Pawns
         // Map the inputs to their actions.
         void Start()
         {
+            base.Start();
+
             InputActionMap actionMap = m_inputActionSet.FindActionMap("Player", true);
 
             // Movement

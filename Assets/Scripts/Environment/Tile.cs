@@ -11,9 +11,8 @@ namespace PHC.Environment
     /// </summary>
     public enum Tile : byte
     {
-        //The values of these are also the locaions in the Sprite[] array.
-        Floor = 0,
-        Wall = 1,
-        Ceiling = 2
+        Empty = 0,
+        Door = 1,
+        Blocking = 2
     }
 }
