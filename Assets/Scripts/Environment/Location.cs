@@ -16,12 +16,12 @@ namespace PHC.Environment
         /// <summary>
         /// The X location on the map.
         /// </summary>
-        public long X { set; get; }
+        public long X;
 
         /// <summary>
         /// The Y location on the map.
         /// </summary>
-        public long Y { set; get; }
+        public long Y;
 
         public Location(long x, long y)
         {
