@@ -1,5 +1,6 @@
 using PHC.Pawns;
 using PHC.Utility;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -49,7 +50,7 @@ namespace PHC.Environment
 
             for (Location tilePos = new Location(0, 0); tilePos.X < size.X; tilePos.X++)
                 for (tilePos.Y = 0; tilePos.Y < size.Y; tilePos.Y++)
-                    m_mapTiles[tilePos.X, tilePos.Y] = Random.Range(0, 2) == 1 ? Tile.Empty : Tile.Blocking;
+                    m_mapTiles[tilePos.X, tilePos.Y] = UnityEngine.Random.Range(0, 2) == 1 ? Tile.Empty : Tile.Blocking;
 
             m_mapTiles[0, 0] = Tile.Empty;
 
@@ -149,7 +150,7 @@ namespace PHC.Environment
         public Location[] GetPath(Location a, Location b)
         {
             // If we're already at point b.
-            if(a == b)
+            if (a == b)
             {
                 return null;
             }
@@ -234,8 +235,35 @@ namespace PHC.Environment
         /// </summary>
         /// <param name="toLocation">The location to search from.</param>
         /// <param name="path">The path from the toLocation to the closest Object of Type.</param>
+        public static List<Tuple<T, Location[]>> FindAllPathsToComponents<T>(Location toLocation) where T : Pawn
+        {
+            Map map = GameManager.Instance?.TheMap;
+
+            T[] allObjectsOfType = GameObject.FindObjectsOfType<T>();
+
+            // If no EggHoles were found, return nothing.
+            if (map == null || allObjectsOfType == null || allObjectsOfType.Length == 0)
+                return null;
+
+            List<Tuple<T, Location[]>> paths = new List<Tuple<T, Location[]>>(allObjectsOfType.Length);
+
+            foreach (T obj in allObjectsOfType)
+            {
+                Location[] path = map.GetPath(toLocation, obj.GetCurrentTile());
+                if (path != null)
+                    paths.Add(new Tuple<T, Location[]>(obj, path));
+            }
+
+            return paths;
+        }
+
+        /// <summary>
+        /// Returns the closest Pawn Object from a location.
+        /// </summary>
+        /// <param name="toLocation">The location to search from.</param>
+        /// <param name="path">The path from the toLocation to the closest Object of Type.</param>
         /// <returns>The Object and the path to it.</returns>
-        public static T FindClosestComponent<T>(Location toLocation, out Location[] path) where T : Pawn
+        public static T FindPathToClosestComponent<T>(Location toLocation, out Location[] path) where T : Pawn
         {
             Map map = GameManager.Instance?.TheMap;
 
