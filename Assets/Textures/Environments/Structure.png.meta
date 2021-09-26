@@ -67,7 +67,7 @@ TextureImporter:
     second: Floor
   - first:
       213: -697594351944134315
-    second: Roof
+    second: Roof_NS
   - first:
       213: -4315232978730882536
     second: Roof_inner_NE
@@ -125,6 +125,9 @@ TextureImporter:
   - first:
       213: 2076252646463846028
     second: Door_N_Locked
+  - first:
+      213: 1008256293749237528
+    second: Roof_EW
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -655,7 +658,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Roof
+      name: Roof_NS
       rect:
         serializedVersion: 2
         x: 80
@@ -1070,6 +1073,27 @@ TextureImporter:
       bones: []
       spriteID: c86317018c450dc10800000000000000
       internalID: 2076252646463846028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Roof_EW
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 112
+        width: 16
+        height: 16
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 817a977d1cb0efd00800000000000000
+      internalID: 1008256293749237528
       vertices: []
       indices: 
       edges: []
