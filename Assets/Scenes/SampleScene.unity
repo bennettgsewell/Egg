@@ -809,7 +809,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 281863476184822463, guid: 9399eef14f74e1b499cd715f274a9cfe, type: 3}
       propertyPath: m_doorStatus
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1609613808314555212, guid: 9399eef14f74e1b499cd715f274a9cfe, type: 3}
       propertyPath: m_RootOrder
@@ -867,9 +867,13 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 1.01
       objectReference: {fileID: 0}
+    - target: {fileID: 2181242013238632264, guid: 9399eef14f74e1b499cd715f274a9cfe, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4288130257444617612, guid: 9399eef14f74e1b499cd715f274a9cfe, type: 3}
       propertyPath: m_doorStatus
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9399eef14f74e1b499cd715f274a9cfe, type: 3}
