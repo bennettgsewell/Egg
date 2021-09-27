@@ -128,6 +128,24 @@ TextureImporter:
   - first:
       213: 1008256293749237528
     second: Roof_EW
+  - first:
+      213: 8227302205387875845
+    second: Floor_Simple_NW
+  - first:
+      213: -1697724591371321283
+    second: Floor_Simple_N
+  - first:
+      213: 6680460618635375775
+    second: Floor_Simple_NE
+  - first:
+      213: -6412889200480446857
+    second: Floor_Simple_SE
+  - first:
+      213: -2524450563092064189
+    second: Floor_Simple_S
+  - first:
+      213: -53785339046482285
+    second: Floor_Simple_SW
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1094,6 +1112,132 @@ TextureImporter:
       bones: []
       spriteID: 817a977d1cb0efd00800000000000000
       internalID: 1008256293749237528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Floor_Simple_NW
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 16
+        height: 16
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 506aee304cf3d2270800000000000000
+      internalID: 8227302205387875845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Floor_Simple_N
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 96
+        width: 16
+        height: 16
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d300ed4aa787078e0800000000000000
+      internalID: -1697724591371321283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Floor_Simple_NE
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 96
+        width: 16
+        height: 16
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f947fbdb983c5bc50800000000000000
+      internalID: 6680460618635375775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Floor_Simple_SE
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 80
+        width: 16
+        height: 16
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7769c65cf37d007a0800000000000000
+      internalID: -6412889200480446857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Floor_Simple_S
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 80
+        width: 16
+        height: 16
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 348dcd5869957fcd0800000000000000
+      internalID: -2524450563092064189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Floor_Simple_SW
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 80
+        width: 16
+        height: 16
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39ea204e48ae04ff0800000000000000
+      internalID: -53785339046482285
       vertices: []
       indices: 
       edges: []
