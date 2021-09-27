@@ -38,16 +38,16 @@ namespace PHC.Pawns
                 // Figure out the offset using the direction the Character is facing.
                 switch (m_beingHeldBy.FacingDirection)
                 {
-                    case Character.Direction.South:
+                    case Direction.South:
                         offset = new Vector2(0, -HOLD_OFFSET);
                         break;
-                    case Character.Direction.West:
+                    case Direction.West:
                         offset = new Vector2(-HOLD_OFFSET, 0);
                         break;
-                    case Character.Direction.North:
+                    case Direction.North:
                         offset = new Vector2(0, HOLD_OFFSET);
                         break;
-                    case Character.Direction.East:
+                    case Direction.East:
                         offset = new Vector2(HOLD_OFFSET, 0);
                         break;
                     default:
@@ -61,7 +61,7 @@ namespace PHC.Pawns
                 // Set the rendering height
                 // If going north, render below the Character.
                 if (m_sprite != null)
-                    m_sprite.sortingOrder = m_beingHeldBy.FacingDirection == Character.Direction.North ? 0 : 20;
+                    m_sprite.sortingOrder = m_beingHeldBy.FacingDirection == Direction.North ? 0 : 20;
             }
         }
 

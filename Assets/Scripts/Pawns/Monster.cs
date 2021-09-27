@@ -241,6 +241,9 @@ namespace PHC.Pawns
                     if (!IsPathing || m_targetEggHole == null)
                     {
                         SetDestinationToClosestPawnOfType(out m_targetEggHole);
+                        if (m_targetEggHole == null)
+                            Kill();
+
                         if (!IsPathing)
                         {
                             // Couldn't find an EggHole.
@@ -250,7 +253,7 @@ namespace PHC.Pawns
                     }
 
                     // If we have reached the EggHole.
-                    if (Vector2.Distance(Position, m_targetEggHole.Position) < m_pickupDistance)
+                    if (m_targetEggHole != null && Vector2.Distance(Position, m_targetEggHole.Position) < m_pickupDistance)
                     {
                         LargeItem egg = HeldItem;
                         DropLargeItem();
