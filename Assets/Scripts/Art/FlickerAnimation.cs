@@ -54,15 +54,13 @@ namespace PHC
         /// <param name="time">The amount of time the flick component will stay on them.</param>
         public static void StartFlickerOn(GameObject go, bool destroyAfter, float time)
         {
-            // If there is already a flicker on this GameObject, don't do anything.
-            if (go.TryGetComponent(out FlickerAnimation _))
-                return;
-
-            // Make sure there's a SpriteRender Component on the GameObject.
             if (go.TryGetComponent(out SpriteRenderer sprite))
             {
-                // Add the Flicker
-                FlickerAnimation flicker = go.AddComponent<FlickerAnimation>();
+                FlickerAnimation flicker;
+                // If there is already a flicker on this GameObject, don't do anything.
+                if (!go.TryGetComponent(out flicker))
+                    flicker = go.AddComponent<FlickerAnimation>();
+
                 flicker.m_renderer = sprite;
                 flicker.m_destroyAfter = destroyAfter;
                 flicker.m_stopAfter = Time.time + time;
