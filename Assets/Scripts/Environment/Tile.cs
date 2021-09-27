@@ -13,6 +13,6 @@ namespace PHC.Environment
     {
         Empty = 0,
         Door = 1,
-        Blocking = 2
+        Blocking = 2,
     }
 }

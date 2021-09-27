@@ -28,6 +28,7 @@ namespace PHC.Environment
 
         private Material m_spriteMaterial;
 
+        /*
         /// <summary>
         /// Creates a Map from scratch.
         /// </summary>
@@ -58,6 +59,7 @@ namespace PHC.Environment
                 for (tilePos.Y = 0; tilePos.Y < size.Y; tilePos.Y++)
                     CreateTileGameObject(tilePos);
         }
+        */
 
         /// <summary>
         /// Creates a Map using Tiles in the Scene
@@ -65,13 +67,13 @@ namespace PHC.Environment
         public Map()
         {
             // Get all of the Tile GameObjects in the scene.
-            TileComp[] allTileObjects = GameObject.FindObjectsOfType<TileComp>();
+            TileTypeMono[] allTileObjects = GameObject.FindObjectsOfType<TileTypeMono>();
 
             // Try and find the total size of the map so we can create an array.
             Location size = new Location(0, 0);
 
             // Iterate through all of the Tile objects in the Scene
-            foreach (TileComp eachTile in allTileObjects)
+            foreach (TileTypeMono eachTile in allTileObjects)
             {
                 // Figure out the size of the map.
                 // Round the position to the nearest grid point, just in case the level designer makes a mistake.
@@ -91,7 +93,7 @@ namespace PHC.Environment
             // This will be used if new Tiles are added to the Scene during runtime.
             m_mapRootObject = new GameObject("The Map");
 
-            foreach (TileComp eachTile in allTileObjects)
+            foreach (TileTypeMono eachTile in allTileObjects)
             {
                 Location tileLoc = new Location(eachTile.transform.position);
 
