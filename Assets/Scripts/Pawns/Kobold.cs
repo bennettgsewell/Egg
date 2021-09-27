@@ -16,6 +16,9 @@ namespace PHC.Pawns
         // The direction the player is moving per frame.
         private Vector2 m_moving;
 
+        [SerializeField]
+        private AudioClip m_damagedClip;
+
         // Map the inputs to their actions.
         void Start()
         {
@@ -145,7 +148,14 @@ namespace PHC.Pawns
 
         public override void Kill()
         {
-            throw new System.NotImplementedException();
+            DropLargeItem();
+            FlickerAnimation.StartFlickerOn(gameObject, false, 0.5f);
+            TookDamage();
+        }
+
+        public override void TookDamage()
+        {
+            PlaySound(m_damagedClip);
         }
     }
 }

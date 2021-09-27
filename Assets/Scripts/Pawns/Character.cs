@@ -285,13 +285,17 @@ namespace PHC.Pawns
             }
             else
             {
-                FlickerAnimation.StartFlickerOn(gameObject, false, 0.5f);
+                FlickerAnimation.StartFlickerOn(gameObject, false, 0.25f);
             }
 
 #if DEBUG
             Debug.Log($"{gameObject.name} CurrentHealth: {CurrentHealth}");
 #endif
+
+            TookDamage();
         }
+
+        public abstract void TookDamage();
 
         /// <summary>
         /// Kills the Character.

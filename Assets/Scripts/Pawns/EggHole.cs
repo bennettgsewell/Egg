@@ -44,8 +44,10 @@ namespace PHC.Pawns
                 monster.Position = Position;
 
                 // Increment the spawn count.
+#if !DEBUG
                 m_spawned++;
                 m_waitFor *= 3;
+#endif
             }
 
             if (m_spawned >= m_spawnAmount)

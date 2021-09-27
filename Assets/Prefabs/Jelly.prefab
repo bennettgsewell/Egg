@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_audioSource: {fileID: 341689493206114001}
   m_speed: 2
-  m_pickupDistance: 1
+  m_pickupDistance: 0.4
   m_startingHealth: 6
   m_pawnSizeDiameter: 0.75
   m_animator: {fileID: 0}

@@ -207,6 +207,16 @@ namespace PHC.Pawns
             // Start chasing the closest egg if there is one.
             SetDestinationToClosestPawnOfType(out m_targetEgg);
 
+            // If the pathing failed, it could be because the Egg is in the same Tile.
+            if (m_currentPath == null)
+            {
+                // Try and pick up EVERY EGG
+                Egg[] eggs = FindObjectsOfType<Egg>();
+                foreach (Egg egg in eggs)
+                    if (PickupLargeItem(egg, false))
+                        return;
+            }
+
             // If pathing failed or egg is out of range.
             if (m_currentPath == null || m_currentPath.Length > EGG_SEE_DISTANCE || m_targetEgg.IsBeingHeld)
             {
@@ -244,168 +254,169 @@ namespace PHC.Pawns
                     {
                         LargeItem egg = HeldItem;
                         DropLargeItem();
-                        Destroy(egg);
+                        Destroy(egg.gameObject);
 
                         m_targetEgg = null;
                         m_targetEggHole = null;
                     }
-                    return;
                 }
                 else
                 {
                     DropLargeItem();
                 }
             }
-
-            // Check to see if an egg is nearby.
-            if (CurrentState != MonsterState.Attack && CurrentState != MonsterState.SuccessOnAttackSearchForEgg)
+            else
             {
-                Egg egg = Map.FindPathToClosestComponent<Egg>(current, out Location[] eggPath);
-                if (egg != null && !egg.IsBeingHeld && Vector2.Distance(Position, egg.Position) < EGG_SEE_DISTANCE)
-                    StartSuccessfullyAttackedFindEgg();
-            }
-
-            // Check to see if a player is nearby.
-            if (CurrentState != MonsterState.Attack && CurrentState != MonsterState.SuccessOnAttackSearchForEgg)
-            {
-
-                Kobold[] kobolds = FindObjectsOfType<Kobold>();
-                foreach (Kobold kobold in kobolds)
+                // Check to see if an egg is nearby.
+                if (CurrentState != MonsterState.Attack && CurrentState != MonsterState.SuccessOnAttackSearchForEgg)
                 {
-                    Location kLoc = kobold.GetCurrentTile();
-                    long distanceFromKobold = Location.GetDistance(current, kLoc);
+                    Egg egg = Map.FindPathToClosestComponent<Egg>(current, out Location[] eggPath);
+                    if (egg != null && !egg.IsBeingHeld && Vector2.Distance(Position, egg.Position) < EGG_SEE_DISTANCE)
+                        StartSuccessfullyAttackedFindEgg();
+                }
 
-                    if (distanceFromKobold < ENEMY_SEE_DISTANCE)
+                // Check to see if a player is nearby.
+                if (CurrentState != MonsterState.Attack && CurrentState != MonsterState.SuccessOnAttackSearchForEgg)
+                {
+
+                    Kobold[] kobolds = FindObjectsOfType<Kobold>();
+                    foreach (Kobold kobold in kobolds)
                     {
-                        // Make sure there's a path between the Kobold and the mob.
-                        Location[] path = GameManager.Instance?.TheMap?.GetPath(current, kLoc);
+                        Location kLoc = kobold.GetCurrentTile();
+                        long distanceFromKobold = Location.GetDistance(current, kLoc);
 
-                        if (path != null)
+                        if (distanceFromKobold < ENEMY_SEE_DISTANCE)
                         {
-                            StartAttacking();
-                            SetPath(path);
-                            m_lastKoboldLocation = kLoc;
-                            m_lastKobold = kobold;
-                            break;
+                            // Make sure there's a path between the Kobold and the mob.
+                            Location[] path = GameManager.Instance?.TheMap?.GetPath(current, kLoc);
+
+                            if (path != null)
+                            {
+                                StartAttacking();
+                                SetPath(path);
+                                m_lastKoboldLocation = kLoc;
+                                m_lastKobold = kobold;
+                                break;
+                            }
                         }
                     }
                 }
-            }
 
-            switch (CurrentState)
-            {
-                case MonsterState.Idling:
-                    if (Time.time > m_idlingUntil)
-                    {
-                        if (Random.Range(0, 2) == 1)
-                            StartWandering();
-                        else
-                            StartTinyExplore();
-                    }
-                    break;
-
-                case MonsterState.Wander:
-                    if (!IsPathing)
-                        StartIdling();
-                    break;
-
-                case MonsterState.TinyExplore:
-
-                    if (Time.time > m_tinyExploreUntil)
-                    {
-                        SetPath(null);
-                        StartIdling();
-                    }
-
-                    if (Time.time > m_idlingUntil)
-                    {
-                        // If already walking skip.
-                        if (IsPathing)
-                            break;
-
-                        // Find the next tile to walk to.
-                        Location nextTile = GetCurrentTile();
-                        switch (GetRandomDirection())
-                        {
-                            case Direction.East:
-                                nextTile.X++;
-                                break;
-                            case Direction.North:
-                                nextTile.Y++;
-                                break;
-                            case Direction.South:
-                                nextTile.Y--;
-                                break;
-                            case Direction.West:
-                                nextTile.X--;
-                                break;
-                        }
-                        Tile nextTileType = GameManager.Instance?.TheMap?.GetTile(nextTile) ?? Tile.Blocking;
-
-                        // If the randomly selected Tile is empty, path there.
-                        if (nextTileType == Tile.Empty)
-                            SetDestination(nextTile);
-
-                        // The amount of time to wait before choosing the next Tile to go to. This includes travel time.
-                        m_idlingUntil = Time.time + Random.Range(0, 2f);
-                    }
-                    break;
-
-                case MonsterState.Attack:
-
-                    // If the Kobold Object was destoryed or is missing.
-                    if (m_lastKobold == null)
-                    {
-                        StartIdling();
-                        break;
-                    }
-
-                    // The location of the Kobold.
-                    Location kLoc = m_lastKobold.GetCurrentTile();
-
-                    // If the Kobold has moved.
-                    if (kLoc != m_lastKoboldLocation)
-                    {
-                        // Create a new path to them.
-                        m_lastKoboldLocation = kLoc;
-                        SetDestination(m_lastKobold);
-                    }
-
-                    break;
-
-                case MonsterState.SuccessOnAttackSearchForEgg:
-
-                    // We have begun moving towards the egg.
-                    if (IsPathing && m_targetEgg != null)
-                    {
-                        // If the player or another monster picked up the egg.
-                        if (m_targetEgg.IsBeingHeld)
-                        {
-                            // Start idling this will initiate attack if the player is close enough.
-                            SetPath(null);
-                            m_targetEgg = null;
-                            StartTinyExplore();
-                            return;
-                        }
-
-                        // The egg is still up for grabs.
-                        // Try and pick it up.
-                        if (PickupLargeItem(m_targetEgg, false))
-                            SetPath(null);
-                    }
-                    else
-                    {
-                        //Idle for a little bit.
+                switch (CurrentState)
+                {
+                    case MonsterState.Idling:
                         if (Time.time > m_idlingUntil)
                         {
-                            StartTinyExplore();
+                            if (Random.Range(0, 2) == 1)
+                                StartWandering();
+                            else
+                                StartTinyExplore();
                         }
-                        return;
-                    }
-                    break;
+                        break;
 
-                case MonsterState.STOP:
-                    return;
+                    case MonsterState.Wander:
+                        if (!IsPathing)
+                            StartIdling();
+                        break;
+
+                    case MonsterState.TinyExplore:
+
+                        if (Time.time > m_tinyExploreUntil)
+                        {
+                            SetPath(null);
+                            StartIdling();
+                        }
+
+                        if (Time.time > m_idlingUntil)
+                        {
+                            // If already walking skip.
+                            if (IsPathing)
+                                break;
+
+                            // Find the next tile to walk to.
+                            Location nextTile = GetCurrentTile();
+                            switch (GetRandomDirection())
+                            {
+                                case Direction.East:
+                                    nextTile.X++;
+                                    break;
+                                case Direction.North:
+                                    nextTile.Y++;
+                                    break;
+                                case Direction.South:
+                                    nextTile.Y--;
+                                    break;
+                                case Direction.West:
+                                    nextTile.X--;
+                                    break;
+                            }
+                            Tile nextTileType = GameManager.Instance?.TheMap?.GetTile(nextTile) ?? Tile.Blocking;
+
+                            // If the randomly selected Tile is empty, path there.
+                            if (nextTileType == Tile.Empty)
+                                SetDestination(nextTile);
+
+                            // The amount of time to wait before choosing the next Tile to go to. This includes travel time.
+                            m_idlingUntil = Time.time + Random.Range(0, 2f);
+                        }
+                        break;
+
+                    case MonsterState.Attack:
+
+                        // If the Kobold Object was destoryed or is missing.
+                        if (m_lastKobold == null)
+                        {
+                            StartIdling();
+                            break;
+                        }
+
+                        // The location of the Kobold.
+                        Location kLoc = m_lastKobold.GetCurrentTile();
+
+                        // If the Kobold has moved.
+                        if (kLoc != m_lastKoboldLocation)
+                        {
+                            // Create a new path to them.
+                            m_lastKoboldLocation = kLoc;
+                            SetDestination(m_lastKobold);
+                        }
+
+                        break;
+
+                    case MonsterState.SuccessOnAttackSearchForEgg:
+
+                        // We have begun moving towards the egg.
+                        if (IsPathing && m_targetEgg != null)
+                        {
+                            // If the player or another monster picked up the egg.
+                            if (m_targetEgg.IsBeingHeld)
+                            {
+                                // Start idling this will initiate attack if the player is close enough.
+                                SetPath(null);
+                                m_targetEgg = null;
+                                StartTinyExplore();
+                                return;
+                            }
+
+                            // The egg is still up for grabs.
+                            // Try and pick it up.
+                            if (PickupLargeItem(m_targetEgg, false))
+                                SetPath(null);
+                        }
+                        else
+                        {
+                            //Idle for a little bit.
+                            if (Time.time > m_idlingUntil)
+                            {
+                                StartTinyExplore();
+                            }
+                            return;
+                        }
+                        break;
+
+                    case MonsterState.STOP:
+                        return;
+                }
             }
 
             if (IsPathing)
@@ -487,9 +498,15 @@ namespace PHC.Pawns
 
         public override void Kill()
         {
+            DropLargeItem();
             FlickerAnimation.StartFlickerOn(gameObject, true, 0.5f);
-            PlaySound(m_deathSound);
+            TookDamage();
             Destroy(this);
+        }
+
+        public override void TookDamage()
+        {
+            PlaySound(m_deathSound);
         }
     }
 }
