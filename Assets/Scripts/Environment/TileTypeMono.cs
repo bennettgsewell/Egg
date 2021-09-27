@@ -4,14 +4,11 @@ using UnityEngine;
 
 namespace PHC.Environment
 {
-    public class TileComp : TileTypeMono
+    public abstract class TileTypeMono : MonoBehaviour
     {
-        [SerializeField]
-        private Tile m_tile;
-
         /// <summary>
         /// The Type of Tile this GameObject is.
         /// </summary>
-        public override Tile Tile => m_tile;
+        public abstract Tile Tile { get; }
     }
 }
