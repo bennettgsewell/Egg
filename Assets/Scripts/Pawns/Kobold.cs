@@ -11,6 +11,22 @@ namespace PHC.Pawns
     /// </summary>
     public class Kobold : Character
     {
+        [System.Serializable]
+        public class KoboldDirectionSprites
+        {
+            public Sprite
+                m_idle,
+                m_walk1,
+                m_walk2,
+                m_attack,
+                m_sword1,
+                m_sword2,
+                m_sword3;
+            public Vector3 m_swordLocalPosition;
+        }
+
+        public KoboldDirectionSprites m_spritesNorth, m_spritesEast, m_spritesSouth, m_spritesWest;
+
         public InputActionAsset m_inputActionSet;
 
         // The direction the player is moving per frame.
@@ -18,6 +34,18 @@ namespace PHC.Pawns
 
         [SerializeField]
         private AudioClip m_damagedClip;
+
+        [SerializeField]
+        private SpriteRenderer m_renderer;
+
+        [SerializeField]
+        private SpriteRenderer m_swordRenderer;
+
+        private int m_swordLevel = 1;
+
+        // This is when the attack animation ends.
+        private float m_attackEnds;
+
 
         // Map the inputs to their actions.
         void Start()
@@ -46,11 +74,21 @@ namespace PHC.Pawns
 
             openInventoryAction.performed += (c) =>
             {
-                GameObject.FindObjectOfType<Jelly>()?.SetDestinationToClosestPawnOfType<EggHole>(out EggHole _);
+                m_swordLevel++;
+                if (m_swordLevel == 4)
+                    m_swordLevel = 1;
+
             };
+
+            attackAction.performed += AttackAction_performed;
 
             // Enable the player InputActionMap
             actionMap.Enable();
+        }
+
+        private void AttackAction_performed(InputAction.CallbackContext obj)
+        {
+            m_attackEnds = Time.time + 0.3f;
         }
 
         // The "use" button was pressed.
@@ -142,8 +180,51 @@ namespace PHC.Pawns
 
         protected void Update()
         {
+            bool freezeMovement = false;
+
+            KoboldDirectionSprites spriteSet;
+
+            switch (FacingDirection)
+            {
+                case Direction.East: spriteSet = m_spritesEast; break;
+                case Direction.South: spriteSet = m_spritesSouth; break;
+                case Direction.West: spriteSet = m_spritesWest; break;
+                case Direction.North: spriteSet = m_spritesNorth; break;
+                default: throw new System.Exception();
+            }
+
+            // Handle the animations
+            if (Time.time < m_attackEnds)
+            {
+                m_renderer.sprite = spriteSet.m_attack;
+                freezeMovement = true;
+
+                m_swordRenderer.enabled = true;
+                m_swordRenderer.transform.localPosition = spriteSet.m_swordLocalPosition;
+                switch (m_swordLevel)
+                {
+                    case 1: m_swordRenderer.sprite = spriteSet.m_sword1; break;
+                    case 2: m_swordRenderer.sprite = spriteSet.m_sword2; break;
+                    case 3: m_swordRenderer.sprite = spriteSet.m_sword3; break;
+                }
+            }
+            else
+            {
+                m_swordRenderer.enabled = false;
+
+                if (m_moving != Vector2.zero)
+                {
+                    m_renderer.sprite = ((long)(Time.time / 0.3f)) % 2 == 0 ? spriteSet.m_walk1 : spriteSet.m_walk2;
+                }
+                else
+                {
+                    m_renderer.sprite = spriteSet.m_idle;
+                }
+            }
+
             // Move every frame.
-            Move(m_moving);
+            if (!freezeMovement)
+                Move(m_moving);
         }
 
         public override void Kill()
