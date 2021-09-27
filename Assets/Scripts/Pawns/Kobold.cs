@@ -47,7 +47,6 @@ namespace PHC.Pawns
         // This is when the attack animation ends.
         private float m_attackEnds;
 
-
         // Map the inputs to their actions.
         void Start()
         {
@@ -274,7 +273,12 @@ namespace PHC.Pawns
 
             // Move every frame.
             if (!freezeMovement)
+            {
                 Move(m_moving);
+
+                // Victory check, see if they're standing on a set of stairs if the current tile has changed.
+
+            }
         }
 
         public override void Kill()
