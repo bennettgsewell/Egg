@@ -37,8 +37,12 @@ namespace PHC
             // Camera.orthographicSize is like a radius, so it's halfed.
             m_camera.orthographicSize = SCREEN_HEIGHT / PPU / 2f;
 
+            int renderHeight = Screen.height;
+            int renderWidth = Screen.width;
+            float newRenderWidth = ((renderHeight / (float)SCREEN_HEIGHT) * SCREEN_WIDTH) / renderWidth;
+
             // Force the correct aspect ratio, since the width of the camera is dynamic.
-            m_camera.rect = new Rect((1f - CORRECT_ASPECT) / 2f, 0, CORRECT_ASPECT, 1);
+            m_camera.rect = new Rect((1f - newRenderWidth) / 2, 0, newRenderWidth, 1);
         }
     }
 }
