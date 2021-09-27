@@ -143,7 +143,17 @@ namespace PHC.Environment
                 || pos.X >= m_mapTiles.GetLongLength(0) || pos.Y >= m_mapTiles.GetLongLength(1))
                 return Tile.Blocking;
 
-            return m_mapTiles[pos.X, pos.Y];
+            Tile t = m_mapTiles[pos.X, pos.Y];
+
+            if (t == Tile.Door)
+            {
+                Door door = Door.IsTileDoor(pos);
+                if (door == null)
+                    return Tile.Blocking;
+                return door.IsOpen ? Tile.Empty : Tile.Blocking;
+            }
+
+            return t;
         }
 
         /// <summary>

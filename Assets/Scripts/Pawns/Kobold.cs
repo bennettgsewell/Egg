@@ -1,4 +1,5 @@
 using PHC.Art;
+using PHC.Environment;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -109,9 +110,9 @@ namespace PHC.Pawns
 
             // Get all Monster objects and compare them to the Hitbox
             Monster[] monsters = FindObjectsOfType<Monster>();
-            foreach(var monster in monsters)
+            foreach (var monster in monsters)
             {
-                if(hitbox.Contains(monster.Position + new Vector2(0.5f, 0.5f)))
+                if (hitbox.Contains(monster.Position + new Vector2(0.5f, 0.5f)))
                 {
                     monster.DealDamage(m_swordLevel);
                 }
@@ -122,15 +123,37 @@ namespace PHC.Pawns
         private void UseAction_performed(InputAction.CallbackContext obj)
         {
             if (IsHoldingItem)
+            {
+                if(HeldItem is Key)
+                {
+                    Door door = Door.IsTileDoor(FacingDirection.Shift(GetCurrentTile()));
+                    if(door != null && door.Status == Door.DoorStatus.Locked)
+                    {
+                        door.AttemptToOpen(true);
+                        LargeItem held = HeldItem;
+                        DropLargeItem();
+                        Destroy(held.gameObject);
+                    }
+                }
+
                 DropLargeItem();
+            }
             else
-                AttemptToPickupLargeItem();
+            {
+                // Attempt to pickup item.
+                if (!AttemptToPickupLargeItem())
+                {
+                    // If failed to pickup an item.
+                    // Try opening door.
+                    Door.IsTileDoor(FacingDirection.Shift(GetCurrentTile()))?.AttemptToOpen(false);
+                }
+            }
         }
 
         /// <summary>
         /// Attempts to pickup the closest LargeItem.
         /// </summary>
-        private void AttemptToPickupLargeItem()
+        private bool AttemptToPickupLargeItem()
         {
             // Get all of the LargeItems
             LargeItem[] largeItems = FindObjectsOfType<LargeItem>();
@@ -159,7 +182,7 @@ namespace PHC.Pawns
                 }
             }
 
-            PickupLargeItem(closestItem, false);
+            return PickupLargeItem(closestItem, false);
         }
 
         // Handles movement input.

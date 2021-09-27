@@ -11,17 +11,6 @@ namespace PHC.Pawns
     public abstract class Character : Pawn
     {
         /// <summary>
-        /// Cardinal directions.
-        /// </summary>
-        public enum Direction
-        {
-            South = 0,// 0 for default
-            North = 1,
-            East = 2,
-            West = 3
-        }
-
-        /// <summary>
         /// Returns a random Direction enum.
         /// </summary>
         public Direction GetRandomDirection() => (Direction)Random.Range(0, 4);
@@ -112,32 +101,16 @@ namespace PHC.Pawns
 
                 Vector2 newPosCenterOfTile = newPos + new Vector2(0.5f, 0.5f);
 
-                Tile GetTileDoorCheck(Location loc)
-                {
-                    Tile t = map.GetTile(loc);
-                    if(t == Tile.Door)
-                    {
-                        foreach(var dt in FindObjectsOfType<DoorTile>())
-                        {
-                            if(dt.GetCurrentTile() == loc)
-                            {
-                                return dt.m_door.IsOpen ? Tile.Empty : Tile.Blocking;
-                            }
-                        }
-                    }
-                    return t;
-                }
-
                 switch (FacingDirection)
                 {
                     case Direction.North:
                         // If the top left or top right of Pawn is inside a blocking tile.
-                        if(GetTileDoorCheck(new Location(newPosCenterOfTile + new Vector2(-pawnSizeRadius, pawnSizeRadius))) == Tile.Blocking
-                         || GetTileDoorCheck(new Location(newPosCenterOfTile + new Vector2(pawnSizeRadius, pawnSizeRadius))) == Tile.Blocking)
+                        if(map.GetTile(new Location(newPosCenterOfTile + new Vector2(-pawnSizeRadius, pawnSizeRadius))) == Tile.Blocking
+                         || map.GetTile(new Location(newPosCenterOfTile + new Vector2(pawnSizeRadius, pawnSizeRadius))) == Tile.Blocking)
                         {
                             // If the Tile directly above is open
                             Location tileDirectlyAbove = new Location(newPosCenterOfTile + new Vector2(0, pawnSizeRadius));
-                            if (GetTileDoorCheck(tileDirectlyAbove) == Tile.Empty)
+                            if (map.GetTile(tileDirectlyAbove) == Tile.Empty)
                             {
                                 // Get the point inside the current tile.
                                 float insideTile = newPosCenterOfTile.x % 1;
@@ -156,8 +129,8 @@ namespace PHC.Pawns
                         break;
                     case Direction.South:
                         // If the bottom left or bottom right of Pawn is inside a blocking tile.
-                        if (GetTileDoorCheck(new Location(newPosCenterOfTile + new Vector2(-pawnSizeRadius, -pawnSizeRadius))) == Tile.Blocking
-                         || GetTileDoorCheck(new Location(newPosCenterOfTile + new Vector2(pawnSizeRadius, -pawnSizeRadius))) == Tile.Blocking)
+                        if (map.GetTile(new Location(newPosCenterOfTile + new Vector2(-pawnSizeRadius, -pawnSizeRadius))) == Tile.Blocking
+                         || map.GetTile(new Location(newPosCenterOfTile + new Vector2(pawnSizeRadius, -pawnSizeRadius))) == Tile.Blocking)
                         {
                             // If the Tile directly below is open
                             Location tileDirectlyBelow = new Location(newPosCenterOfTile + new Vector2(0, -pawnSizeRadius));
@@ -180,12 +153,12 @@ namespace PHC.Pawns
                         break;
                     case Direction.East:
                         // If the top right or bottom right of Pawn is inside a blocking tile.
-                        if (GetTileDoorCheck(new Location(newPosCenterOfTile + new Vector2(pawnSizeRadius, pawnSizeRadius))) == Tile.Blocking
-                         || GetTileDoorCheck(new Location(newPosCenterOfTile + new Vector2(pawnSizeRadius, -pawnSizeRadius))) == Tile.Blocking)
+                        if (map.GetTile(new Location(newPosCenterOfTile + new Vector2(pawnSizeRadius, pawnSizeRadius))) == Tile.Blocking
+                         || map.GetTile(new Location(newPosCenterOfTile + new Vector2(pawnSizeRadius, -pawnSizeRadius))) == Tile.Blocking)
                         {
                             // If the Tile directly east is open
                             Location tileDirectlyEast = new Location(newPosCenterOfTile + new Vector2(pawnSizeRadius, 0));
-                            if (GetTileDoorCheck(tileDirectlyEast) == Tile.Empty)
+                            if (map.GetTile(tileDirectlyEast) == Tile.Empty)
                             {
                                 // Get the point inside the current tile.
                                 float insideTile = newPosCenterOfTile.y % 1;
@@ -204,12 +177,12 @@ namespace PHC.Pawns
                         break;
                     case Direction.West:
                         // If the top left or bottom left of Pawn is inside a blocking tile.
-                        if (GetTileDoorCheck(new Location(newPosCenterOfTile + new Vector2(-pawnSizeRadius, pawnSizeRadius))) == Tile.Blocking
-                         || GetTileDoorCheck(new Location(newPosCenterOfTile + new Vector2(-pawnSizeRadius, -pawnSizeRadius))) == Tile.Blocking)
+                        if (map.GetTile(new Location(newPosCenterOfTile + new Vector2(-pawnSizeRadius, pawnSizeRadius))) == Tile.Blocking
+                         || map.GetTile(new Location(newPosCenterOfTile + new Vector2(-pawnSizeRadius, -pawnSizeRadius))) == Tile.Blocking)
                         {
                             // If the Tile directly west is open
                             Location tileDirectlyEast = new Location(newPosCenterOfTile + new Vector2(-pawnSizeRadius, 0));
-                            if (GetTileDoorCheck(tileDirectlyEast) == Tile.Empty)
+                            if (map.GetTile(tileDirectlyEast) == Tile.Empty)
                             {
                                 // Get the point inside the current tile.
                                 float insideTile = newPosCenterOfTile.y % 1;
