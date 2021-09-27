@@ -88,7 +88,30 @@ namespace PHC.Pawns
 
         private void AttackAction_performed(InputAction.CallbackContext obj)
         {
+            // This will start the animation and pause movement.
             m_attackEnds = Time.time + 0.3f;
+
+            // Damage all enemies inside zone
+            Vector2 hitbotPos = Position;
+            switch (FacingDirection)
+            {
+                case Direction.East: hitbotPos.x++; break;
+                case Direction.South: hitbotPos.y--; break;
+                case Direction.West: hitbotPos.x--; break;
+                case Direction.North: hitbotPos.y++; break;
+                default: throw new System.Exception();
+            }
+            Rect hitbox = new Rect(hitbotPos, Vector2.one);
+
+            // Get all Monster objects and compare them to the Hitbox
+            Monster[] monsters = FindObjectsOfType<Monster>();
+            foreach(var monster in monsters)
+            {
+                if(hitbox.Contains(monster.Position + new Vector2(0.5f, 0.5f)))
+                {
+                    monster.DealDamage(m_swordLevel);
+                }
+            }
         }
 
         // The "use" button was pressed.
