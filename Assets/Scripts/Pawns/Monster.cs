@@ -240,7 +240,7 @@ namespace PHC.Pawns
                     // If not pathing, move towards nearest EggHole.
                     if (!IsPathing || m_targetEggHole == null)
                     {
-                        SetDestinationToClosestPawnOfType<EggHole>(out m_targetEggHole);
+                        SetDestinationToClosestPawnOfType(out m_targetEggHole);
                         if (!IsPathing)
                         {
                             // Couldn't find an EggHole.
