@@ -257,9 +257,18 @@ namespace PHC.Pawns
                 }
             }
 
+            // Check to see if an egg is nearby.
+            if (CurrentState != MonsterState.Attack && CurrentState != MonsterState.SuccessOnAttackSearchForEgg)
+            {
+                Egg egg = Map.FindPathToClosestComponent<Egg>(current, out Location[] eggPath);
+                if (egg != null && !egg.IsBeingHeld && Vector2.Distance(Position, egg.Position) < EGG_SEE_DISTANCE)
+                    StartSuccessfullyAttackedFindEgg();
+            }
+
             // Check to see if a player is nearby.
             if (CurrentState != MonsterState.Attack && CurrentState != MonsterState.SuccessOnAttackSearchForEgg)
             {
+
                 Kobold[] kobolds = FindObjectsOfType<Kobold>();
                 foreach (Kobold kobold in kobolds)
                 {
