@@ -159,7 +159,10 @@ namespace PHC.Environment
         /// <summary>
         /// Returns an A* path between two map Locations.
         /// </summary>
-        public Location[] GetPath(Location a, Location b)
+        /// <param name="a">The start</param>
+        /// <param name="b">The end</param>
+        /// <param name="maxDistance">The maximum amount of distance to search.</param>
+        public Location[] GetPath(Location a, Location b, ushort maxDistance)
         {
             // If we're already at point b.
             if (a == b)
@@ -173,14 +176,14 @@ namespace PHC.Environment
             // Make all of the distances there max values.
             for (long x = 0; x < distances.GetLongLength(0); x++)
                 for (long y = 0; y < distances.GetLongLength(1); y++)
-                    distances[x, y] = ushort.MaxValue;
+                    distances[x, y] = maxDistance;
 
             // Generate all the distance values.
             GenerateAStarDistances(a, 0, distances, b);
 
             // Return nothing if there's no path back.
             ushort distance = distances[b.X, b.Y];
-            if (distance == ushort.MaxValue)
+            if (distance == maxDistance)
                 return null;
 
             // Find the shortest path back.
@@ -247,7 +250,8 @@ namespace PHC.Environment
         /// </summary>
         /// <param name="toLocation">The location to search from.</param>
         /// <param name="path">The path from the toLocation to the closest Object of Type.</param>
-        public static List<Tuple<T, Location[]>> FindAllPathsToComponents<T>(Location toLocation) where T : Pawn
+        /// <param name="maxDistance">The maximum amount of distance to search.</param>
+        public static List<Tuple<T, Location[]>> FindAllPathsToComponents<T>(Location toLocation, ushort maxDistance) where T : Pawn
         {
             Map map = GameManager.Instance?.TheMap;
 
@@ -261,7 +265,7 @@ namespace PHC.Environment
 
             foreach (T obj in allObjectsOfType)
             {
-                Location[] path = map.GetPath(toLocation, obj.GetCurrentTile());
+                Location[] path = map.GetPath(toLocation, obj.GetCurrentTile(), maxDistance);
                 if (path != null)
                     paths.Add(new Tuple<T, Location[]>(obj, path));
             }
@@ -274,8 +278,9 @@ namespace PHC.Environment
         /// </summary>
         /// <param name="toLocation">The location to search from.</param>
         /// <param name="path">The path from the toLocation to the closest Object of Type.</param>
+        /// <param name="maxDistance">The maximum amount of distance to search.</param>
         /// <returns>The Object and the path to it.</returns>
-        public static T FindPathToClosestComponent<T>(Location toLocation, out Location[] path) where T : Pawn
+        public static T FindPathToClosestComponent<T>(Location toLocation, out Location[] path, ushort maxDistance) where T : Pawn
         {
             Map map = GameManager.Instance?.TheMap;
 
@@ -291,7 +296,7 @@ namespace PHC.Environment
 
             foreach (T hole in allObjectsOfType)
             {
-                Location[] potentialPath = map.GetPath(toLocation, hole.GetCurrentTile());
+                Location[] potentialPath = map.GetPath(toLocation, hole.GetCurrentTile(), maxDistance);
 
                 // If not path, skip.
                 if (potentialPath == null)

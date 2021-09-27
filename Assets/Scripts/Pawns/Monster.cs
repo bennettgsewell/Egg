@@ -103,7 +103,7 @@ namespace PHC.Pawns
         /// <summary>
         /// Tells the Monster to move to a location if possible.
         /// </summary>
-        public void SetDestination(Location target)
+        public void SetDestination(Location target, ushort maxDistance)
         {
             // Make sure there is a Map object.
             Map map = GameManager.Instance?.TheMap;
@@ -117,7 +117,7 @@ namespace PHC.Pawns
             Location current = GetCurrentTile();
 
             // Get the path from A to B
-            Location[] path = map.GetPath(current, target);
+            Location[] path = map.GetPath(current, target, maxDistance);
 
             SetPath(path);
         }
@@ -125,7 +125,7 @@ namespace PHC.Pawns
         /// <summary>
         /// Tells the Monster to move to a location if possible.
         /// </summary>
-        public void SetDestination(Pawn pawn) => SetDestination(pawn.GetCurrentTile());
+        public void SetDestination(Pawn pawn, ushort maxDistancce) => SetDestination(pawn.GetCurrentTile(), maxDistancce);
 
         /// <summary>
         /// Sets the current walk path.
@@ -169,14 +169,14 @@ namespace PHC.Pawns
 
             // Find the closest WalkPoint.
             // This will probably be in the room with us.
-            WalkPoint closestWalkPoint = Map.FindPathToClosestComponent<WalkPoint>(GetCurrentTile(), out Location[] _);
+            WalkPoint closestWalkPoint = Map.FindPathToClosestComponent<WalkPoint>(GetCurrentTile(), out Location[] _, 40);
 
             // Get a different walk point that's connected to this one.
             WalkPoint nextWalkPoint = closestWalkPoint.GetPathToAnotherWalkPoint()?.Item1;
 
             // Attempt to path there.
             if (nextWalkPoint != null)
-                SetDestination(nextWalkPoint.GetCurrentTile());
+                SetDestination(nextWalkPoint.GetCurrentTile(), 40);
 
             // If this fails, idle instead.
             if (!IsPathing)
@@ -205,7 +205,7 @@ namespace PHC.Pawns
             CurrentState = MonsterState.SuccessOnAttackSearchForEgg;
 
             // Start chasing the closest egg if there is one.
-            SetDestinationToClosestPawnOfType(out m_targetEgg);
+            SetDestinationToClosestPawnOfType(out m_targetEgg, (ushort)EGG_SEE_DISTANCE);
 
             // If the pathing failed, it could be because the Egg is in the same Tile.
             if (m_currentPath == null)
@@ -240,7 +240,7 @@ namespace PHC.Pawns
                     // If not pathing, move towards nearest EggHole.
                     if (!IsPathing || m_targetEggHole == null)
                     {
-                        SetDestinationToClosestPawnOfType(out m_targetEggHole);
+                        SetDestinationToClosestPawnOfType(out m_targetEggHole, ushort.MaxValue);
                         if (m_targetEggHole == null)
                             Kill();
 
@@ -273,7 +273,7 @@ namespace PHC.Pawns
                 // Check to see if an egg is nearby.
                 if (CurrentState != MonsterState.Attack && CurrentState != MonsterState.SuccessOnAttackSearchForEgg)
                 {
-                    Egg egg = Map.FindPathToClosestComponent<Egg>(current, out Location[] eggPath);
+                    Egg egg = Map.FindPathToClosestComponent<Egg>(current, out Location[] eggPath, (ushort)EGG_SEE_DISTANCE);
                     if (egg != null && !egg.IsBeingHeld && Vector2.Distance(Position, egg.Position) < EGG_SEE_DISTANCE)
                         StartSuccessfullyAttackedFindEgg();
                 }
@@ -291,7 +291,7 @@ namespace PHC.Pawns
                         if (distanceFromKobold < ENEMY_SEE_DISTANCE)
                         {
                             // Make sure there's a path between the Kobold and the mob.
-                            Location[] path = GameManager.Instance?.TheMap?.GetPath(current, kLoc);
+                            Location[] path = GameManager.Instance?.TheMap?.GetPath(current, kLoc, (ushort)ENEMY_SEE_DISTANCE);
 
                             if (path != null)
                             {
@@ -357,7 +357,7 @@ namespace PHC.Pawns
 
                             // If the randomly selected Tile is empty, path there.
                             if (nextTileType == Tile.Empty)
-                                SetDestination(nextTile);
+                                SetDestination(nextTile, 2);
 
                             // The amount of time to wait before choosing the next Tile to go to. This includes travel time.
                             m_idlingUntil = Time.time + Random.Range(0, 2f);
@@ -381,7 +381,7 @@ namespace PHC.Pawns
                         {
                             // Create a new path to them.
                             m_lastKoboldLocation = kLoc;
-                            SetDestination(m_lastKobold);
+                            SetDestination(m_lastKobold, (ushort)ENEMY_SEE_DISTANCE + 1);
                         }
 
                         break;
@@ -489,9 +489,9 @@ namespace PHC.Pawns
         /// </summary>
         /// <typeparam name="T">The Type of Pawn to look for.</typeparam>
         /// <param name="targetObj">Outputs the object itself if one was found.</param>
-        public void SetDestinationToClosestPawnOfType<T>(out T targetObj) where T : Pawn
+        public void SetDestinationToClosestPawnOfType<T>(out T targetObj, ushort maxDistance) where T : Pawn
         {
-            targetObj = Map.FindPathToClosestComponent<T>(GetCurrentTile(), out Location[] path);
+            targetObj = Map.FindPathToClosestComponent<T>(GetCurrentTile(), out Location[] path, maxDistance);
 
             if (targetObj != null && path != null)
                 SetPath(path);

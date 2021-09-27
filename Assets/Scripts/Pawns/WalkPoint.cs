@@ -21,7 +21,7 @@ namespace PHC.Pawns
         {
             base.Start();
 
-            otherWalkPoints = Map.FindAllPathsToComponents<WalkPoint>(GetCurrentTile());
+            otherWalkPoints = Map.FindAllPathsToComponents<WalkPoint>(GetCurrentTile(), 40);
         }
 
         public Tuple<WalkPoint, Location[]> GetPathToAnotherWalkPoint()
