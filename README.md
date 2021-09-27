@@ -4,7 +4,7 @@
 
 ## Unity
 
-Unity 2020.3.18f1
+Unity 2020.3.19f1
 
 ## Game Description
 Opening the pause menu will not actually pause the game.
