@@ -31,13 +31,18 @@ namespace PHC
             }
 
             m_renderer.enabled = ((long)(Time.time * 15f)) % 2 == 1;
-            if(m_stopAfter > 0 && Time.time > m_stopAfter)
+            if (m_stopAfter > 0 && Time.time > m_stopAfter)
             {
                 // DestroyAfter Destroys the entire GameObject, not just the flicker effect.
                 if (m_destroyAfter)
                     Destroy(gameObject);
                 else
+                {
+                    // Make sure it's visible when destroying.
+                    m_renderer.enabled = true;
+
                     Destroy(this);
+                }
             }
         }
 

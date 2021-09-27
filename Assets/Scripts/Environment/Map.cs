@@ -231,7 +231,7 @@ namespace PHC.Environment
 
 
         /// <summary>
-        /// Returns the closest Pawn Object from a location.
+        /// Returns all valid paths to a Pawn Object from a location.
         /// </summary>
         /// <param name="toLocation">The location to search from.</param>
         /// <param name="path">The path from the toLocation to the closest Object of Type.</param>

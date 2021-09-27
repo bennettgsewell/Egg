@@ -49,7 +49,7 @@ MonoBehaviour:
   m_audioSource: {fileID: 0}
   m_speed: 4.76
   m_pickupDistance: 1
-  m_startingHealth: 0
+  m_startingHealth: 3
   m_pawnSizeDiameter: 0.75
   m_animator: {fileID: 989367230795188889}
   m_inputActionSet: {fileID: -944628639613478452, guid: b15e18b18b502c148a2e30037b43515f, type: 3}

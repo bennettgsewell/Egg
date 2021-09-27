@@ -59,6 +59,11 @@ namespace PHC.Pawns
         public bool IsHoldingItem => m_holding != null;
 
         /// <summary>
+        /// The LargeItem currently being held.
+        /// </summary>
+        public LargeItem HeldItem { get => m_holding; }
+
+        /// <summary>
         /// Moves the character in a direction.
         /// </summary>
         public void Move(Vector2 destinationDelta)
@@ -229,18 +234,21 @@ namespace PHC.Pawns
         /// </summary>
         /// <param name="item">The item to be picked up by the Character.</param>
         /// <param name="ignorePickupDistance">If set the m_pickupDistance value won't be taken into account.</param>
-        public void PickupLargeItem(LargeItem item, bool ignorePickupDistance)
+        /// <returns>True on success</returns>
+        public bool PickupLargeItem(LargeItem item, bool ignorePickupDistance)
         {
-            if (item == null)
-                return;
-
-            if (m_holding == null && item.m_beingHeldBy == null && (ignorePickupDistance || Vector2.Distance(item.Position, Position) < m_pickupDistance))
+            if (item != null
+                && m_holding == null
+                && item.m_beingHeldBy == null
+                && (ignorePickupDistance || Vector2.Distance(item.Position, Position) < m_pickupDistance))
             {
                 m_holding = item;
                 m_holding.m_beingHeldBy = this;
                 m_holding.MoveWithCharacter();
                 m_holding.PickedUp();
+                return true;
             }
+            return false;
         }
 
         /// <summary>
@@ -267,7 +275,7 @@ namespace PHC.Pawns
         /// Deals damage to this Character.
         /// </summary>
         /// <param name="amount">The amount of damage to deal.</param>
-        private void TakeDamage(int amount)
+        public void DealDamage(int amount)
         {
             CurrentHealth -= amount;
             if (CurrentHealth < 0)
@@ -275,6 +283,14 @@ namespace PHC.Pawns
                 CurrentHealth = 0;
                 Kill();
             }
+            else
+            {
+                FlickerAnimation.StartFlickerOn(gameObject, false, 0.5f);
+            }
+
+#if DEBUG
+            Debug.Log($"{gameObject.name} CurrentHealth: {CurrentHealth}");
+#endif
         }
 
         /// <summary>

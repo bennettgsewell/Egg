@@ -99,7 +99,7 @@ MonoBehaviour:
   m_audioSource: {fileID: 341689493206114001}
   m_speed: 2
   m_pickupDistance: 1
-  m_startingHealth: 0
+  m_startingHealth: 6
   m_pawnSizeDiameter: 0.75
   m_animator: {fileID: 0}
   m_deathSound: {fileID: 8300000, guid: b02d99e1e9ae9304d93a7f9e819e6026, type: 3}

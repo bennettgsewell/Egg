@@ -23,6 +23,8 @@ namespace PHC.Pawns
         [NonSerialized]
         public Character m_beingHeldBy = null;
 
+        public bool IsBeingHeld => m_beingHeldBy != null;
+
         public void MoveWithCharacter()
         {
             if (m_beingHeldBy != null)

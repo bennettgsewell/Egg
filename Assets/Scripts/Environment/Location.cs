@@ -40,6 +40,8 @@ namespace PHC.Environment
 
         public static implicit operator Vector2(Location value) => new Vector2(value.X, value.Y);
 
+        public static long GetDistance(Location a, Location b) => Math.Abs(Math.Abs(a.X) - Math.Abs(b.X)) + Math.Abs(Math.Abs(a.Y) - Math.Abs(b.Y));
+
         public override string ToString() => $"Location({X}, {Y})";
     }
 }
