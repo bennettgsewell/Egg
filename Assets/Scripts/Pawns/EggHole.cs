@@ -25,7 +25,7 @@ namespace PHC.Pawns
             base.Start();
 
             // 5 Seconds
-            m_waitFor = 5;
+            m_waitFor = 5 + UnityEngine.Random.Range(0f, 5f);
 
             m_lastSpawnTime = Time.time;
         }
@@ -45,7 +45,7 @@ namespace PHC.Pawns
 
                 // Increment the spawn count.
                 m_spawned++;
-                m_waitFor *= 3;
+                m_waitFor *= 3 + UnityEngine.Random.Range(0f, 5f);
             }
 
             if (m_spawned >= m_spawnAmount)

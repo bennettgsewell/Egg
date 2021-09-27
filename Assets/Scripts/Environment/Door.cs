@@ -57,6 +57,12 @@ namespace PHC.Environment
         [SerializeField]
         private DoorSettings m_doorA, m_doorB;
 
+        [SerializeField]
+        private AudioSource m_audioSource;
+
+        [SerializeField]
+        private AudioClip m_openSound, m_closeSound, m_lockedSound;
+
         void Start()
         {
             Status = Status;
@@ -84,12 +90,20 @@ namespace PHC.Environment
             if(Status == DoorStatus.Locked)
             {
                 if (hasKey)
+                {
                     Status = DoorStatus.Open;
+                    PlaySound(m_openSound);
+                }
+                else
+                    PlaySound(m_lockedSound); 
             }
             else
             {
                 if (Status == DoorStatus.Closed)
+                {
                     Status = DoorStatus.Open;
+                    PlaySound(m_openSound);
+                }
                 else
                 {
                     DoorTile[] myTiles = GetComponentsInChildren<DoorTile>();
@@ -123,8 +137,14 @@ namespace PHC.Environment
                     }
 
                     Status = DoorStatus.Closed;
+                    PlaySound(m_closeSound);
                 }
             }
+        }
+        protected void PlaySound(AudioClip clip)
+        {
+            if (clip != null && m_audioSource != null)
+                m_audioSource.PlayOneShot(clip);
         }
     }
 }
