@@ -39,7 +39,7 @@ namespace PHC.Pawns
                 m_lastSpawnTime = Time.time;
 
                 // Spawn Monster.
-                GameObject newMonsterGO = Instantiate(m_monsterPrefab);
+                GameObject newMonsterGO = Instantiate(m_monsterPrefab, gameObject.transform);
                 Monster monster = newMonsterGO.GetComponent<Monster>();
                 monster.Position = Position;
 

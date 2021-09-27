@@ -15,9 +15,6 @@ namespace PHC.Environment
         // The Tile types.
         private Tile[,] m_mapTiles;
 
-        // The root GameObject for the map.
-        GameObject m_mapRootObject;
-
         // The GameObject for each tile.
         GameObject[,] m_mapTileGameObjects;
 
@@ -90,9 +87,6 @@ namespace PHC.Environment
 
             m_mapTiles = new Tile[size.X + 1, size.Y + 1];
 
-            // This will be used if new Tiles are added to the Scene during runtime.
-            m_mapRootObject = new GameObject("The Map");
-
             foreach (TileTypeMono eachTile in allTileObjects)
             {
                 Location tileLoc = new Location(eachTile.transform.position);
@@ -127,10 +121,6 @@ namespace PHC.Environment
             renderer.sharedMaterial = m_spriteMaterial;
             renderer.sprite = sprite;
             renderer.sortingLayerName = "Background";
-
-            // Set the location and parent.
-            tileGO.transform.SetParent(m_mapRootObject.transform);
-            tileGO.transform.position = new Vector3(pos.X, pos.Y, 0);
         }
 
         /// <summary>

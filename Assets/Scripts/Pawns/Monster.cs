@@ -172,7 +172,7 @@ namespace PHC.Pawns
             WalkPoint closestWalkPoint = Map.FindPathToClosestComponent<WalkPoint>(this, GetCurrentTile(), out Location[] _, 40);
 
             // Get a different walk point that's connected to this one.
-            WalkPoint nextWalkPoint = closestWalkPoint.GetPathToAnotherWalkPoint()?.Item1;
+            WalkPoint nextWalkPoint = closestWalkPoint?.GetPathToAnotherWalkPoint()?.Item1;
 
             // Attempt to path there.
             if (nextWalkPoint != null)
