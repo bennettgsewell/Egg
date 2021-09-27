@@ -23,6 +23,9 @@ namespace PHC.Pawns
         [NonSerialized]
         public Character m_beingHeldBy = null;
 
+        [SerializeField]
+        private AudioClip m_pickupSound, m_dropSound;
+
         public bool IsBeingHeld => m_beingHeldBy != null;
 
         public void MoveWithCharacter()
@@ -72,6 +75,7 @@ namespace PHC.Pawns
         {
             if (m_sprite != null)
                 m_sprite.sortingLayerName = "Player";
+            PlaySound(m_pickupSound);
         }
 
         /// <summary>
@@ -81,6 +85,7 @@ namespace PHC.Pawns
         {
             if (m_sprite != null)
                 m_sprite.sortingLayerName = "Default";
+            PlaySound(m_dropSound);
         }
     }
 }

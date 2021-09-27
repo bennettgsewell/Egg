@@ -36,8 +36,8 @@ namespace PHC.Pawns
                     Location size = map.Size;
 
                     //Clamp it to be inside the map.
-                    m_actualPosition.x = Mathf.Clamp(m_actualPosition.x, 0, size.X-1);
-                    m_actualPosition.y = Mathf.Clamp(m_actualPosition.y, 0, size.Y-1);
+                    m_actualPosition.x = Mathf.Clamp(m_actualPosition.x, 0, size.X - 1);
+                    m_actualPosition.y = Mathf.Clamp(m_actualPosition.y, 0, size.Y - 1);
                 }
 
                 transform.position = RoundToPixel(m_actualPosition);
@@ -98,7 +98,8 @@ namespace PHC.Pawns
 
         protected void PlaySound(AudioClip clip)
         {
-            m_audioSource?.PlayOneShot(clip);
+            if (clip != null && m_audioSource != null)
+                m_audioSource.PlayOneShot(clip);
         }
     }
 }
