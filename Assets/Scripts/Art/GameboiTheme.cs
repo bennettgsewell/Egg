@@ -99,14 +99,27 @@ namespace PHC.Art
         /// <summary>
         /// Applies this color set globally to the Gameboi shader.
         /// </summary>
-        public void ApplyColorTheme()
+        /// <param name="bgColor">Which of the four colors to apply as the Camera's BG color 1-4.</param>
+        public void ApplyColorTheme(int bgColor)
         {
             Shader.SetGlobalColor(@"_GameboiColor1", m_color1);
             Shader.SetGlobalColor(@"_GameboiColor2", m_color2);
             Shader.SetGlobalColor(@"_GameboiColor3", m_color3);
             Shader.SetGlobalColor(@"_GameboiColor4", m_color4);
             if (Camera.main != null)
-                Camera.main.backgroundColor = m_color3;
+            {
+                Color bg;
+                switch (bgColor)
+                {
+                    case 1: bg = m_color1; break;
+                    case 2: bg = m_color2; break;
+                    case 3: bg = m_color3; break;
+                    case 4: bg = m_color4; break;
+                    default: throw new System.Exception();
+                }
+
+                Camera.main.backgroundColor = bg;
+            }
         }
     }
 
