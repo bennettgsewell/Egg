@@ -123,10 +123,10 @@ namespace PHC.Pawns
         {
             if (IsHoldingItem)
             {
-                if(HeldItem is Key)
+                if (HeldItem is Key)
                 {
                     Door door = Door.IsTileDoor(FacingDirection.Shift(GetCurrentTile()));
-                    if(door != null && door.Status == Door.DoorStatus.Locked)
+                    if (door != null && door.Status == Door.DoorStatus.Locked)
                     {
                         door.AttemptToOpen(true);
                         LargeItem held = HeldItem;
@@ -274,9 +274,24 @@ namespace PHC.Pawns
             // Move every frame.
             if (!freezeMovement)
             {
+                Location currentTile = GetCurrentTile();
                 Move(m_moving);
+                Location newTile = GetCurrentTile();
 
                 // Victory check, see if they're standing on a set of stairs if the current tile has changed.
+                if (currentTile != newTile)
+                {
+                    if (IsHoldingItem && HeldItem is Egg)
+                    {
+                        foreach (Stairs stair in FindObjectsOfType<Stairs>())
+                        {
+                            if (newTile == stair.GetCurrentTile() && stair.m_direction == Stairs.StairDirection.Ascending)
+                            {
+                                GameManager.Instance?.NextLevel();
+                            }
+                        }
+                    }
+                }
 
             }
         }
