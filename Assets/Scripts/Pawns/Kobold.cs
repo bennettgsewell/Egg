@@ -88,6 +88,10 @@ namespace PHC.Pawns
 
         private void AttackAction_performed(InputAction.CallbackContext obj)
         {
+            // If we're in the middle of an Attack we cannot start another.
+            if (Time.time < m_attackEnds)
+                return;
+
             // This will start the animation and pause movement.
             m_attackEnds = Time.time + 0.3f;
 

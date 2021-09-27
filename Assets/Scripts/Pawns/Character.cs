@@ -278,7 +278,7 @@ namespace PHC.Pawns
         public void DealDamage(int amount)
         {
             CurrentHealth -= amount;
-            if (CurrentHealth < 0)
+            if (CurrentHealth <= 0)
             {
                 CurrentHealth = 0;
                 Kill();
