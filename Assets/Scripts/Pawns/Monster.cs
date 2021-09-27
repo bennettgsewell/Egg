@@ -117,7 +117,7 @@ namespace PHC.Pawns
             Location current = GetCurrentTile();
 
             // Get the path from A to B
-            Location[] path = map.GetPath(current, target, maxDistance);
+            Location[] path = map.GetPath(this, current, target, maxDistance);
 
             SetPath(path);
         }
@@ -169,7 +169,7 @@ namespace PHC.Pawns
 
             // Find the closest WalkPoint.
             // This will probably be in the room with us.
-            WalkPoint closestWalkPoint = Map.FindPathToClosestComponent<WalkPoint>(GetCurrentTile(), out Location[] _, 40);
+            WalkPoint closestWalkPoint = Map.FindPathToClosestComponent<WalkPoint>(this, GetCurrentTile(), out Location[] _, 40);
 
             // Get a different walk point that's connected to this one.
             WalkPoint nextWalkPoint = closestWalkPoint.GetPathToAnotherWalkPoint()?.Item1;
@@ -273,7 +273,7 @@ namespace PHC.Pawns
                 // Check to see if an egg is nearby.
                 if (CurrentState != MonsterState.Attack && CurrentState != MonsterState.SuccessOnAttackSearchForEgg)
                 {
-                    Egg egg = Map.FindPathToClosestComponent<Egg>(current, out Location[] eggPath, (ushort)EGG_SEE_DISTANCE);
+                    Egg egg = Map.FindPathToClosestComponent<Egg>(this, current, out Location[] eggPath, (ushort)EGG_SEE_DISTANCE);
                     if (egg != null && !egg.IsBeingHeld && Vector2.Distance(Position, egg.Position) < EGG_SEE_DISTANCE)
                         StartSuccessfullyAttackedFindEgg();
                 }
@@ -291,7 +291,7 @@ namespace PHC.Pawns
                         if (distanceFromKobold < ENEMY_SEE_DISTANCE)
                         {
                             // Make sure there's a path between the Kobold and the mob.
-                            Location[] path = GameManager.Instance?.TheMap?.GetPath(current, kLoc, (ushort)ENEMY_SEE_DISTANCE);
+                            Location[] path = GameManager.Instance?.TheMap?.GetPath(this, current, kLoc, (ushort)ENEMY_SEE_DISTANCE);
 
                             if (path != null)
                             {
@@ -491,7 +491,7 @@ namespace PHC.Pawns
         /// <param name="targetObj">Outputs the object itself if one was found.</param>
         public void SetDestinationToClosestPawnOfType<T>(out T targetObj, ushort maxDistance) where T : Pawn
         {
-            targetObj = Map.FindPathToClosestComponent<T>(GetCurrentTile(), out Location[] path, maxDistance);
+            targetObj = Map.FindPathToClosestComponent<T>(this, GetCurrentTile(), out Location[] path, maxDistance);
 
             if (targetObj != null && path != null)
                 SetPath(path);
