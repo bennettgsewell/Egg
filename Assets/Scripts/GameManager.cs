@@ -90,19 +90,43 @@ namespace PHC
             NextLevel();
         }
 
-        public void NextLevel()
+        public void LoseScreen()
+        {
+            goToLevel = Time.time + 4;
+            goToLevelNum = m_currentScene;
+            NextLevel(SceneManager.sceneCountInBuildSettings - 1);
+        }
+
+        private float goToLevel;
+        private int goToLevelNum = -1;
+
+        private void Update()
+        {
+            if(goToLevelNum != -1 && Time.time > goToLevel)
+            {
+                NextLevel(goToLevelNum);
+                goToLevel = 0;
+                goToLevelNum = -1;
+            }
+        }
+
+        public void NextLevel(int specificLevel = -1)
         {
             // Unload current scene.
             // Use this to make sure we don't unload it.
             Scene gameManagerScene = gameObject.scene;
 
-            m_currentScene++;
-            if (m_currentScene >= SceneManager.sceneCountInBuildSettings)
+            if (specificLevel == -1)
+                m_currentScene++;
+            else
+                m_currentScene = specificLevel;
+
+            if (specificLevel == -1 && m_currentScene >= SceneManager.sceneCountInBuildSettings - 1)
             {
                 m_currentScene = 0;
             }
 
-            m_isTitleScreen = m_currentScene == 0;
+            m_isTitleScreen = m_currentScene == 0 || m_currentScene == SceneManager.sceneCountInBuildSettings - 1;
 
             // Set activity of all GameObjects in this Scene other than the GameManger.
             foreach (var go in gameManagerScene.GetRootGameObjects())
