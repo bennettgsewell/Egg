@@ -93,7 +93,7 @@ namespace PHC.Pawns
                 return;
 
             // This will start the animation and pause movement.
-            m_attackEnds = Time.time + 0.3f;
+            m_attackEnds = Time.time + 0.15f;
 
             // Damage all enemies inside zone
             Vector2 hitbotPos = Position;
