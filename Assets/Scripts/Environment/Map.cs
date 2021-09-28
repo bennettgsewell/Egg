@@ -206,7 +206,6 @@ namespace PHC.Environment
         /// <param name="maxDistance">The maximum amount of distance to search.</param>
         public Location[] GetPath(Pawn whosAsking, Location a, Location b, ushort maxDistance)
         {
-            Debug.Log($"maxDistance {maxDistance}");
 #if DEBUG
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             sw.Start();
@@ -253,7 +252,8 @@ namespace PHC.Environment
 
 #if DEBUG
             sw.Stop();
-            Debug.Log($"{whosAsking.gameObject.name} pathed {a} -> {b} in {sw.Elapsed.ToString()}");
+            //Debug.Log($"{whosAsking.gameObject.name} pathed {a} -> {b} in {sw.Elapsed.ToString()}");
+            //Debug.Log($"Jelly Count: {GameObject.FindObjectsOfType<Jelly>().Length} / Holes {GameObject.FindObjectsOfType<EggHole>().Length}");
 #endif
 
             return path;

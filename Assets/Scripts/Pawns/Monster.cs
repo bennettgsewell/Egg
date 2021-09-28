@@ -501,6 +501,11 @@ namespace PHC.Pawns
 
         public override void Kill()
         {
+            // Find a random EggHole and queue up another mob to spawn.
+            EggHole[] holes = FindObjectsOfType<EggHole>();
+            EggHole hole = holes[Random.Range(0, holes.Length)];
+            hole.SpawnAnotherIn(Random.Range(1f, 20f));
+
             DropLargeItem();
             FlickerAnimation.StartFlickerOn(gameObject, true, 0.5f);
             TookDamage();
