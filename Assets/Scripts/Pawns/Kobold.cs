@@ -287,7 +287,7 @@ namespace PHC.Pawns
 
                 if (m_moving != Vector2.zero)
                 {
-                    long frame = ((long)(Time.time / 0.4f)) % 4;
+                    long frame = ((long)(Time.time / 0.2f)) % 4;
                     switch (frame)
                     {
                         case 0:
