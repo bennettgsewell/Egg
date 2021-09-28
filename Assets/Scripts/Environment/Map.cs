@@ -1,9 +1,11 @@
+#define TileMap
 using PHC.Pawns;
 using PHC.Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace PHC.Environment
 {
@@ -61,8 +63,59 @@ namespace PHC.Environment
         /// <summary>
         /// Creates a Map using Tiles in the Scene
         /// </summary>
-        public Map()
+        public Map(GameObject mapDebugPrefab)
         {
+#if TileMap
+            // Get all of the Tile GameObjects in the scene.
+            TileTypeMono[] allTileObjects = GameObject.FindObjectsOfType<TileTypeMono>();
+
+            foreach (Tilemap tmap in GameObject.FindObjectsOfType<Tilemap>())
+            {
+                if (tmap.gameObject.name == "Walls")
+                {
+                    //Vector3 worldPosFloat = tmap.transform.position;
+                    //Vector3Int worldPos = new Vector3Int((int)worldPosFloat.x, (int)worldPosFloat.y, (int)worldPosFloat.z);
+                    //worldPos -= tmap.origin;
+
+                    Vector3Int size = tmap.size;
+
+                    m_mapTiles = new Tile[size.x, size.y];
+
+                    // Try and find the total size of the map so we can create an array.
+                    for (int x = 1; x < size.x; x++)
+                    {
+                        for (int y = 1; y < size.y; y++)
+                        {
+                            Vector3Int tilePos = new Vector3Int(x, y, 0);
+                            tilePos += tmap.origin;
+                            TileBase tile = tmap.GetTile(tilePos);
+                            //Debug.Log($"{tilePos}: {(tile == null ? "" : "WALL")}");
+                            Tile tileType = tile == null ? Tile.Empty : Tile.Blocking;
+
+                            m_mapTiles[x, y] = tileType;
+
+                            if(m_mapTiles[x, y] == Tile.Blocking)
+                                GameObject.Instantiate(mapDebugPrefab, new Vector3(x, y, 0), Quaternion.identity);
+                        }
+                    }
+
+                    foreach (TileTypeMono eachTile in allTileObjects)
+                    {
+                        Location tileLoc = new Location(eachTile.transform.position);
+
+                        if (tileLoc.X < 0 || tileLoc.Y < 0)
+                        {
+                            GameObject.Destroy(eachTile.gameObject);
+                        }
+                        else
+                        {
+                            m_mapTiles[tileLoc.X, tileLoc.Y] = eachTile.Tile;
+                        }
+                    }
+                }
+            }
+
+#else
             // Get all of the Tile GameObjects in the scene.
             TileTypeMono[] allTileObjects = GameObject.FindObjectsOfType<TileTypeMono>();
 
@@ -100,6 +153,7 @@ namespace PHC.Environment
                     m_mapTiles[tileLoc.X, tileLoc.Y] = eachTile.Tile;
                 }
             }
+#endif
         }
 
         /// <summary>
@@ -155,6 +209,7 @@ namespace PHC.Environment
         /// <param name="maxDistance">The maximum amount of distance to search.</param>
         public Location[] GetPath(Pawn whosAsking, Location a, Location b, ushort maxDistance)
         {
+            Debug.Log($"maxDistance {maxDistance}");
 #if DEBUG
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             sw.Start();

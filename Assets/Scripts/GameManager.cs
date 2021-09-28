@@ -15,6 +15,9 @@ namespace PHC
 
         private Map m_map;
 
+        [SerializeField]
+        GameObject m_mapDebugPrefab;
+
         /// <summary>
         /// The current Map.
         /// </summary>
@@ -24,7 +27,7 @@ namespace PHC
             get
             {
                 if (m_map == null)
-                    m_map = new Map();
+                    m_map = new Map(m_mapDebugPrefab);
                 return m_map;
             }
         }
