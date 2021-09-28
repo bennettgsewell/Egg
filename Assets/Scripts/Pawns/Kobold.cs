@@ -263,7 +263,20 @@ namespace PHC.Pawns
 
                 if (m_moving != Vector2.zero)
                 {
-                    m_renderer.sprite = ((long)(Time.time / 0.3f)) % 2 == 0 ? spriteSet.m_walk1 : spriteSet.m_walk2;
+                    long frame = ((long)(Time.time / 0.3f)) % 3;
+                    switch (frame)
+                    {
+                        case 0:
+                            m_renderer.sprite = spriteSet.m_walk1;
+                            break;
+                        case 1:
+                            m_renderer.sprite = spriteSet.m_idle;
+                            break;
+                        case 2:
+                            m_renderer.sprite = spriteSet.m_walk2;
+                            break;
+
+                    }
                 }
                 else
                 {
