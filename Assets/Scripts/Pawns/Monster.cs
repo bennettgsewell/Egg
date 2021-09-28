@@ -10,12 +10,12 @@ namespace PHC.Pawns
         /// <summary>
         /// The distance that the mob will see the player and start attacking.
         /// </summary>
-        private const long ENEMY_SEE_DISTANCE = 5;
+        private const long ENEMY_SEE_DISTANCE = 20;
 
         /// <summary>
         /// The distance that the mob will see the player and start attacking.
         /// </summary>
-        private const long EGG_SEE_DISTANCE = 10;
+        private const long EGG_SEE_DISTANCE = 40;
 
         public enum MonsterState
         {
@@ -501,6 +501,11 @@ namespace PHC.Pawns
 
         public override void Kill()
         {
+            // Find a random EggHole and queue up another mob to spawn.
+            EggHole[] holes = FindObjectsOfType<EggHole>();
+            EggHole hole = holes[Random.Range(0, holes.Length)];
+            hole.SpawnAnotherIn(Random.Range(1f, 20f));
+
             DropLargeItem();
             FlickerAnimation.StartFlickerOn(gameObject, true, 0.5f);
             TookDamage();

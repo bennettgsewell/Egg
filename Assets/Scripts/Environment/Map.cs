@@ -63,7 +63,7 @@ namespace PHC.Environment
         /// <summary>
         /// Creates a Map using Tiles in the Scene
         /// </summary>
-        public Map(GameObject mapDebugPrefab)
+        public Map()
         {
 #if TileMap
             // Get all of the Tile GameObjects in the scene.
@@ -93,9 +93,6 @@ namespace PHC.Environment
                             Tile tileType = tile == null ? Tile.Empty : Tile.Blocking;
 
                             m_mapTiles[x, y] = tileType;
-
-                            if(m_mapTiles[x, y] == Tile.Blocking)
-                                GameObject.Instantiate(mapDebugPrefab, new Vector3(x, y, 0), Quaternion.identity);
                         }
                     }
 
@@ -209,7 +206,6 @@ namespace PHC.Environment
         /// <param name="maxDistance">The maximum amount of distance to search.</param>
         public Location[] GetPath(Pawn whosAsking, Location a, Location b, ushort maxDistance)
         {
-            Debug.Log($"maxDistance {maxDistance}");
 #if DEBUG
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             sw.Start();
@@ -256,7 +252,8 @@ namespace PHC.Environment
 
 #if DEBUG
             sw.Stop();
-            Debug.Log($"{whosAsking.gameObject.name} pathed {a} -> {b} in {sw.Elapsed.ToString()}");
+            //Debug.Log($"{whosAsking.gameObject.name} pathed {a} -> {b} in {sw.Elapsed.ToString()}");
+            //Debug.Log($"Jelly Count: {GameObject.FindObjectsOfType<Jelly>().Length} / Holes {GameObject.FindObjectsOfType<EggHole>().Length}");
 #endif
 
             return path;

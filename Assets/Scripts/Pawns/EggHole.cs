@@ -11,8 +11,7 @@ namespace PHC.Pawns
         [SerializeField]
         private GameObject m_monsterPrefab;
 
-        [Tooltip("The amount of mobs this EggHole will spawn.")]
-        public long m_spawnAmount;
+        private long m_spawnAmount = 1;
 
         private long m_spawned = 0;
 
@@ -25,7 +24,7 @@ namespace PHC.Pawns
             base.Start();
 
             // 5 Seconds
-            m_waitFor = 5 + UnityEngine.Random.Range(0f, 5f);
+            m_waitFor = 5;// + UnityEngine.Random.Range(0f, 40f);
 
             m_lastSpawnTime = Time.time;
         }
@@ -45,11 +44,24 @@ namespace PHC.Pawns
 
                 // Increment the spawn count.
                 m_spawned++;
-                m_waitFor *= 3 + UnityEngine.Random.Range(0f, 5f);
+                m_waitFor = 3 + UnityEngine.Random.Range(0f, 5f);
             }
 
             if (m_spawned >= m_spawnAmount)
                 enabled = false;
+        }
+
+        public void SpawnAnotherIn(float time)
+        {
+            // Reset the timer
+            if (!enabled)
+            {
+                m_lastSpawnTime = Time.time;
+                m_waitFor = time;
+            }
+
+            m_spawnAmount++;
+            enabled = true;
         }
     }
 }
