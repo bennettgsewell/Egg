@@ -302,7 +302,6 @@ namespace PHC.Pawns
                         case 3:
                             m_renderer.sprite = spriteSet.m_idle;
                             break;
-
                     }
                 }
                 else

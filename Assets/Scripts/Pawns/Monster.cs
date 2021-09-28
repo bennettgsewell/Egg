@@ -7,6 +7,13 @@ namespace PHC.Pawns
 {
     public class Monster : Character
     {
+        [SerializeField]
+        Kobold.KoboldDirectionSprites
+            m_northSprites,
+            m_eastSprites,
+            m_southSprites,
+            m_westSprites;
+
         /// <summary>
         /// The distance that the mob will see the player and start attacking.
         /// </summary>
@@ -99,6 +106,9 @@ namespace PHC.Pawns
         /// The EggHole we're moving towards.
         /// </summary>
         private EggHole m_targetEggHole;
+
+        [SerializeField]
+        SpriteRenderer m_renderer;
 
         /// <summary>
         /// Tells the Monster to move to a location if possible.
@@ -230,6 +240,34 @@ namespace PHC.Pawns
 
         protected void Update()
         {
+            Kobold.KoboldDirectionSprites spriteSet;
+
+            switch (FacingDirection)
+            {
+                case Direction.East: spriteSet = m_eastSprites; break;
+                case Direction.South: spriteSet = m_southSprites; break;
+                case Direction.West: spriteSet = m_westSprites; break;
+                case Direction.North: spriteSet = m_northSprites; break;
+                default: throw new System.Exception();
+            }
+
+            long frame = ((long)(Time.time / 0.2f)) % 4;
+            switch (frame)
+            {
+                case 0:
+                    m_renderer.sprite = spriteSet.m_walk1;
+                    break;
+                case 1:
+                    m_renderer.sprite = spriteSet.m_idle;
+                    break;
+                case 2:
+                    m_renderer.sprite = spriteSet.m_walk2;
+                    break;
+                case 3:
+                    m_renderer.sprite = spriteSet.m_idle;
+                    break;
+            }
+
             Location current = GetCurrentTile();
 
             // If we're holding an item and it's an Egg, navigate to EggHole, otherwise drop.

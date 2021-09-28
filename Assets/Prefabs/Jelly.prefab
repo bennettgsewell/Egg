@@ -102,7 +102,44 @@ MonoBehaviour:
   m_startingHealth: 3
   m_pawnSizeDiameter: 0.75
   m_animator: {fileID: 0}
+  m_northSprites:
+    m_idle: {fileID: 201726322614883475, guid: 35017820f3557dc4182da8ac4e1e9f86, type: 3}
+    m_walk1: {fileID: 4393222534981605, guid: 35017820f3557dc4182da8ac4e1e9f86, type: 3}
+    m_walk2: {fileID: -7324575896446941632, guid: 35017820f3557dc4182da8ac4e1e9f86, type: 3}
+    m_attack: {fileID: 0}
+    m_sword1: {fileID: 0}
+    m_sword2: {fileID: 0}
+    m_sword3: {fileID: 0}
+    m_swordLocalPosition: {x: 0, y: 0, z: 0}
+  m_eastSprites:
+    m_idle: {fileID: 7624604812459333108, guid: 35017820f3557dc4182da8ac4e1e9f86, type: 3}
+    m_walk1: {fileID: 4470125621003657128, guid: 35017820f3557dc4182da8ac4e1e9f86, type: 3}
+    m_walk2: {fileID: -7638913359713323934, guid: 35017820f3557dc4182da8ac4e1e9f86, type: 3}
+    m_attack: {fileID: 0}
+    m_sword1: {fileID: 0}
+    m_sword2: {fileID: 0}
+    m_sword3: {fileID: 0}
+    m_swordLocalPosition: {x: 0, y: 0, z: 0}
+  m_southSprites:
+    m_idle: {fileID: -1086197501266087201, guid: 35017820f3557dc4182da8ac4e1e9f86, type: 3}
+    m_walk1: {fileID: -6688639742268872090, guid: 35017820f3557dc4182da8ac4e1e9f86, type: 3}
+    m_walk2: {fileID: -8672545713436008857, guid: 35017820f3557dc4182da8ac4e1e9f86, type: 3}
+    m_attack: {fileID: 0}
+    m_sword1: {fileID: 0}
+    m_sword2: {fileID: 0}
+    m_sword3: {fileID: 0}
+    m_swordLocalPosition: {x: 0, y: 0, z: 0}
+  m_westSprites:
+    m_idle: {fileID: 2130913915323717621, guid: 35017820f3557dc4182da8ac4e1e9f86, type: 3}
+    m_walk1: {fileID: 4634828236665790406, guid: 35017820f3557dc4182da8ac4e1e9f86, type: 3}
+    m_walk2: {fileID: -2693532487317520767, guid: 35017820f3557dc4182da8ac4e1e9f86, type: 3}
+    m_attack: {fileID: 0}
+    m_sword1: {fileID: 0}
+    m_sword2: {fileID: 0}
+    m_sword3: {fileID: 0}
+    m_swordLocalPosition: {x: 0, y: 0, z: 0}
   m_deathSound: {fileID: 8300000, guid: b02d99e1e9ae9304d93a7f9e819e6026, type: 3}
+  m_renderer: {fileID: 2284559734113122799}
 --- !u!82 &341689493206114001
 AudioSource:
   m_ObjectHideFlags: 0

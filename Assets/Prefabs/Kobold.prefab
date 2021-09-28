@@ -51,7 +51,7 @@ MonoBehaviour:
   m_audioSource: {fileID: 3617390158850198815}
   m_speed: 4.76
   m_pickupDistance: 1
-  m_startingHealth: 3
+  m_startingHealth: 6
   m_pawnSizeDiameter: 0.75
   m_animator: {fileID: 989367230795188889}
   m_spritesNorth:
