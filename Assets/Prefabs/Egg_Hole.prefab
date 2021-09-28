@@ -69,7 +69,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 707789813
+  m_SortingLayerID: 1183130843
   m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 3643727892963439955, guid: ff18dbd8dd651a14084358ba58e2c5bc, type: 3}
@@ -95,6 +95,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1a9cdafcba41a94088a0dd40f580325, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_pawnSizeDiameter: 0.75
+  m_audioSource: {fileID: 0}
   m_monsterPrefab: {fileID: 7631028843912254703, guid: 90991eccfe7024a43a8d35ceec60fc67, type: 3}
-  m_spawnAmount: 3
