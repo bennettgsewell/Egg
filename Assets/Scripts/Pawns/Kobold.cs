@@ -91,18 +91,18 @@ namespace PHC.Pawns
 
             useAction.performed += UseAction_performed;
 
-            pauseAction.performed += (c) =>
-            {
-                GameObject.FindObjectOfType<Jelly>()?.Kill();
-            };
+            //pauseAction.performed += (c) =>
+            //{
+            //    GameObject.FindObjectOfType<Jelly>()?.Kill();
+            //};
 
-            openInventoryAction.performed += (c) =>
-            {
-                m_swordLevel++;
-                if (m_swordLevel == 4)
-                    m_swordLevel = 1;
-
-            };
+            //openInventoryAction.performed += (c) =>
+            //{
+            //    m_swordLevel++;
+            //    if (m_swordLevel == 4)
+            //        m_swordLevel = 1;
+            //
+            //};
 
             attackAction.performed += AttackAction_performed;
 

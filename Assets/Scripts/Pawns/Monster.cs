@@ -258,6 +258,7 @@ namespace PHC.Pawns
                         LargeItem egg = HeldItem;
                         DropLargeItem();
                         Destroy(egg.gameObject);
+                        GameManager.Instance?.LoseScreen();
 
                         m_targetEgg = null;
                         m_targetEggHole = null;

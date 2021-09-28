@@ -40,6 +40,8 @@ namespace PHC
         [SerializeField]
         private bool m_isTitleScreen = false;
 
+        private bool m_isLoseScreen = false;
+
         private int m_currentScene = 0;
 
         [SerializeField]
@@ -60,7 +62,12 @@ namespace PHC
                 m_instanceOneTime = false;
             }
 
-            if (!m_isTitleScreen)
+            if(m_isLoseScreen)
+            {
+                GameboiTheme.s_defaultGameboyTheme.ApplyColorTheme(4);
+                SetMusic(m_mainMenuMusic);
+            }
+            else if (!m_isTitleScreen)
             {
                 GameboiTheme.s_defaultGameboyTheme.ApplyColorTheme(3);
 
@@ -126,7 +133,8 @@ namespace PHC
                 m_currentScene = 0;
             }
 
-            m_isTitleScreen = m_currentScene == 0 || m_currentScene == SceneManager.sceneCountInBuildSettings - 1;
+            m_isTitleScreen = m_currentScene == 0;
+            m_isLoseScreen = m_currentScene == SceneManager.sceneCountInBuildSettings - 1;
 
             // Set activity of all GameObjects in this Scene other than the GameManger.
             foreach (var go in gameManagerScene.GetRootGameObjects())
