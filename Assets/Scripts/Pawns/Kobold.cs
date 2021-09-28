@@ -1,5 +1,6 @@
 using PHC.Art;
 using PHC.Environment;
+using PHC.HUD;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,15 +43,38 @@ namespace PHC.Pawns
         [SerializeField]
         private SpriteRenderer m_swordRenderer;
 
+        [SerializeField]
+        private GameObject m_hudHeartPrefab;
+
         private int m_swordLevel = 1;
 
         // This is when the attack animation ends.
         private float m_attackEnds;
 
+        private List<Heart> m_hudHearts = new List<Heart>();
+
+        private void SpawnHudHeart()
+        {
+            GameObject newHeart = Instantiate(m_hudHeartPrefab, transform);
+            newHeart.transform.localPosition = new Vector3(-4.5f + m_hudHearts.Count, 4, 0);
+            m_hudHearts.Add(newHeart.GetComponent<Heart>());
+        }
+
+        private void SetHudHeartStatuses()
+        {
+            for (int i = 0; i < m_hudHearts.Count; i++)
+            {
+                m_hudHearts[i].SetStatus(i < CurrentHealth);
+            }
+        }
+
         // Map the inputs to their actions.
         void Start()
         {
             base.Start();
+
+            for (int i = 0; i < CurrentHealth; i++)
+                SpawnHudHeart();
 
             InputActionMap actionMap = m_inputActionSet.FindActionMap("Player", true);
 
@@ -318,6 +342,7 @@ namespace PHC.Pawns
 
         public override void TookDamage()
         {
+            SetHudHeartStatuses();
             PlaySound(m_damagedClip);
         }
     }

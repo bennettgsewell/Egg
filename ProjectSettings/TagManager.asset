@@ -57,3 +57,6 @@ TagManager:
   - name: Door
     uniqueID: 1041656227
     locked: 0
+  - name: HUD
+    uniqueID: 2263697595
+    locked: 0

@@ -94,6 +94,7 @@ MonoBehaviour:
   m_damagedClip: {fileID: 8300000, guid: b02d99e1e9ae9304d93a7f9e819e6026, type: 3}
   m_renderer: {fileID: 4017385298100923211}
   m_swordRenderer: {fileID: 6078132747972861544}
+  m_hudHeartPrefab: {fileID: 8664608374197381378, guid: e121d08086fece64aa4390b493624a7d, type: 3}
 --- !u!95 &989367230795188889
 Animator:
   serializedVersion: 3
