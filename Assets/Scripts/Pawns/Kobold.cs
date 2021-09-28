@@ -336,8 +336,8 @@ namespace PHC.Pawns
         public override void Kill()
         {
             DropLargeItem();
-            FlickerAnimation.StartFlickerOn(gameObject, false, 0.5f);
             TookDamage();
+            GameManager.Instance?.LoseScreen();
         }
 
         public override void TookDamage()
