@@ -1,9 +1,9 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
+name: Feature
+about: Suggest a game feature
 title: ''
-labels: ''
-assignees: ''
+labels: 'enhancement '
+assignees: 'bennettgsewell'
 
 ---
 
