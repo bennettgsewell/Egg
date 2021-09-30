@@ -79,7 +79,7 @@ namespace PHC.Environment
 
                     Vector3Int size = tmap.size;
 
-                    m_mapTiles = new Tile[size.x, size.y];
+                    m_mapTiles = new Tile[256, 256];
 
                     // Try and find the total size of the map so we can create an array.
                     for (int x = 1; x < size.x; x++)
@@ -218,7 +218,7 @@ namespace PHC.Environment
             }
 
             // The steps from point A
-            ushort[,] distances = new ushort[m_mapTiles.GetLongLength(0), m_mapTiles.GetLongLength(1)];
+            ushort[,] distances = new ushort[256, 256];
 
             // Make all of the distances there max values.
             for (long x = 0; x < distances.GetLongLength(0); x++)
