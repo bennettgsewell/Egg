@@ -92,6 +92,6 @@ namespace PHC
         /// <summary>
         /// Calls to Destroy this component and GameObject if set.
         /// </summary>
-        private void Done() => Destroy(DestroyGO ? gameObject : this);
+        private void Done() => Destroy(DestroyGO ? (Object)gameObject : this);
     }
 }
