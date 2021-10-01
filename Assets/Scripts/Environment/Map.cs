@@ -23,7 +23,7 @@ namespace PHC.Environment
         /// <summary>
         /// The Size of the map.
         /// </summary>
-        public Location Size => new Location(m_mapTiles.GetLongLength(0), m_mapTiles.GetLongLength(1));
+        public Location Size => new Location(m_mapTiles?.GetLongLength(0) ?? 0, m_mapTiles?.GetLongLength(1) ?? 0);
 
         private Material m_spriteMaterial;
 
@@ -179,6 +179,10 @@ namespace PHC.Environment
         /// </summary>
         public Tile GetTile(Location pos)
         {
+            // If there's no map there's nothing to calculate.
+            if (m_mapTiles == null)
+                return Tile.Empty;
+
             // If the position is out of bounds, return blocking.
             if (pos.X < 0 || pos.Y < 0
                 || pos.X >= m_mapTiles.GetLongLength(0) || pos.Y >= m_mapTiles.GetLongLength(1))
@@ -206,6 +210,10 @@ namespace PHC.Environment
         /// <param name="maxDistance">The maximum amount of distance to search.</param>
         public Location[] GetPath(Pawn whosAsking, Location a, Location b, ushort maxDistance)
         {
+            // If there's no map there's nothing to calculate.
+            if (m_mapTiles == null)
+                return null;
+
 #if DEBUG
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             sw.Start();
