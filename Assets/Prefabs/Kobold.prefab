@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 245485667853806156}
   - component: {fileID: 4400966623831232484}
-  - component: {fileID: 989367230795188889}
   - component: {fileID: 4017385298100923211}
   - component: {fileID: 3617390158850198815}
   m_Layer: 0
@@ -49,11 +48,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_audioSource: {fileID: 3617390158850198815}
+  m_pawnSizeDiameter: 0.75
+  m_gizmoCubeColor: {r: 0.016202092, g: 1, b: 0, a: 1}
   m_speed: 4.76
   m_pickupDistance: 1
   m_startingHealth: 6
-  m_pawnSizeDiameter: 0.75
-  m_animator: {fileID: 989367230795188889}
   m_spritesNorth:
     m_idle: {fileID: 5360452925873143344, guid: bcc4560a78837b2419bb2eaced416ec0, type: 3}
     m_walk1: {fileID: 1594568054700828289, guid: bcc4560a78837b2419bb2eaced416ec0, type: 3}
@@ -95,25 +94,6 @@ MonoBehaviour:
   m_renderer: {fileID: 4017385298100923211}
   m_swordRenderer: {fileID: 6078132747972861544}
   m_hudHeartPrefab: {fileID: 8664608374197381378, guid: e121d08086fece64aa4390b493624a7d, type: 3}
---- !u!95 &989367230795188889
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1155168336906949993}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6e369d473c1cd7e43865b4aef60f497f, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!212 &4017385298100923211
 SpriteRenderer:
   m_ObjectHideFlags: 0

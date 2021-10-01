@@ -546,7 +546,7 @@ namespace PHC.Pawns
             hole.SpawnAnotherIn(Random.Range(1f, 20f));
 
             DropLargeItem();
-            FlickerAnimation.StartFlickerOn(gameObject, true, 0.5f);
+            Flicker.StartFlickerOn(gameObject, true, 0.5f);
             TookDamage();
             Destroy(this);
         }

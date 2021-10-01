@@ -26,16 +26,8 @@ namespace PHC.Pawns
 
         public int CurrentHealth { private set; get; }
 
-        /// <summary>
-        /// The Pawn size in diameter.
-        /// </summary>
-        public float m_pawnSizeDiameter = (ForceGameboyAspectRatio.PPU - 4) / (float)ForceGameboyAspectRatio.PPU;
-
         // If set the chracter is holding this large item.
         private LargeItem m_holding = null;
-
-        // The animator component.
-        public Animator m_animator;
 
         /// <summary>
         /// The direction this Character is facing.
@@ -205,15 +197,6 @@ namespace PHC.Pawns
             // Move the character to its new position.
             Position = newPos;
 
-            // Determine the direction of the movement for the Animator.
-            if (m_animator != null)
-            {
-                m_animator.SetBool("walk_east", moving && FacingDirection == Direction.East);
-                m_animator.SetBool("walk_west", moving && FacingDirection == Direction.West);
-                m_animator.SetBool("walk_north", moving && FacingDirection == Direction.North);
-                m_animator.SetBool("walk_south", moving && FacingDirection == Direction.South);
-            }
-
             // If holding a LargeItem, move it with us.
             m_holding?.MoveWithCharacter();
         }
@@ -274,7 +257,7 @@ namespace PHC.Pawns
             }
             else
             {
-                FlickerAnimation.StartFlickerOn(gameObject, false, 0.25f);
+                Flicker.StartFlickerOn(gameObject, false, 0.25f);
             }
 
 #if DEBUG

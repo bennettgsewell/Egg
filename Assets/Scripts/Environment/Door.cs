@@ -87,60 +87,72 @@ namespace PHC.Environment
 
         public void AttemptToOpen(bool hasKey)
         {
-            if(Status == DoorStatus.Locked)
+            // Switch based on the current status of the door.
+            switch (Status)
             {
-                if (hasKey)
-                {
+                // If it's locked and they have the key.
+                case DoorStatus.Locked:
+                    if (hasKey)
+                    {
+                        Status = DoorStatus.Open;
+                        PlaySound(m_openSound);
+                    }
+                    else
+                    {
+                        PlaySound(m_lockedSound);
+                    }
+                    break;
+
+                // If the door is closed, open it.
+                case DoorStatus.Closed:
                     Status = DoorStatus.Open;
                     PlaySound(m_openSound);
-                }
-                else
-                    PlaySound(m_lockedSound); 
-            }
-            else
-            {
-                if (Status == DoorStatus.Closed)
-                {
-                    Status = DoorStatus.Open;
-                    PlaySound(m_openSound);
-                }
-                else
-                {
+                    break;
+
+                // If the door is open, make sure there's nothing inside it first.
+                case DoorStatus.Open:
+                    // Doors usually have two or more Tiles inside them that make up the shape of the door.
                     DoorTile[] myTiles = GetComponentsInChildren<DoorTile>();
+                    
+                    // Create Rect(s) based on the Door Tiles.
                     Rect[] myTileRects = new Rect[myTiles.Length];
                     for (int i = 0; i < myTiles.Length; i++)
-                    {
                         myTileRects[i] = new Rect(myTiles[i].transform.position, Vector2.one);
-                    }
 
                     // Before closing, make sure there are no mobs or items in it.
-                    Pawn[] pawns = FindObjectsOfType<Pawn>();
-                    foreach(Pawn pawn in pawns)
+                    foreach (Pawn pawn in FindObjectsOfType<Pawn>())
                     {
                         float pawnSize = 1f;
 
-                        if(pawn is Character)
+                        // If the pawn is a character it may have a custom size.
+                        if (pawn is Character)
                         {
                             Character character = (Character)pawn;
                             pawnSize = character.m_pawnSizeDiameter;
                         }
 
-                        Vector2 pawnAbsPos = pawn.Position;
-                        Rect pawnRect = new Rect(pawnAbsPos, new Vector2(pawnSize, pawnSize));
+                        // Get the position and make a Rect based on their size.
+                        Vector2 pawnPosition = pawn.Position;
 
-                        // If a Pawn overlaps one of the Door's Tiles, return.
+                        // The size of the pawn adjusts the position of it.
+                        // Since the pivot point is bottom left we need to move the Rect up/right a little.
+                        pawnPosition.x += (1f - pawnSize) / 2f;
+                        pawnPosition.y += (1f - pawnSize) / 2f;
+
+                        Rect pawnRect = new Rect(pawnPosition, new Vector2(pawnSize, pawnSize));
+
+                        // If the Pawn overlaps one of the Door's Tiles, return.
                         for (int i = 0; i < myTiles.Length; i++)
-                        {
                             if (myTileRects[i].Overlaps(pawnRect))
                                 return;
-                        }
                     }
 
                     Status = DoorStatus.Closed;
                     PlaySound(m_closeSound);
-                }
+                    break;
             }
         }
+
         protected void PlaySound(AudioClip clip)
         {
             if (clip != null && m_audioSource != null)
