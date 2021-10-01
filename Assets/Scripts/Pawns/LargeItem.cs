@@ -87,5 +87,17 @@ namespace PHC.Pawns
                 m_sprite.sortingLayerName = "Default";
             PlaySound(m_dropSound);
         }
+
+        /// <summary>
+        /// This will cause the object to flicker and then destroy itself.
+        /// </summary>
+        public void Destroy()
+        {
+            // Starts the death timer.
+            Flicker.StartFlickerOn(gameObject, true);
+
+            // Remove the LargeItem component.
+            Destroy(this);
+        }
     }
 }

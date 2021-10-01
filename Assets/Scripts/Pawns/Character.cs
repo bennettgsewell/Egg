@@ -262,7 +262,7 @@ namespace PHC.Pawns
             }
             else
             {
-                FlickerAnimation.StartFlickerOn(gameObject, false, 0.25f);
+                Flicker.StartFlickerOn(gameObject, false, 0.25f);
             }
 
 #if DEBUG
