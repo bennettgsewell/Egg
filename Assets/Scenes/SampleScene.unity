@@ -191,6 +191,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jelly
       objectReference: {fileID: 0}
+    - target: {fileID: 7631028843912254703, guid: 90991eccfe7024a43a8d35ceec60fc67, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8677239393850184415, guid: 90991eccfe7024a43a8d35ceec60fc67, type: 3}
       propertyPath: m_RootOrder
       value: 8
