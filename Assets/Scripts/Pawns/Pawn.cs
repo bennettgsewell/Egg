@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace PHC.Pawns
 {
+    /// <summary>
+    /// The base class for all items, characters, and mobs in the game.
+    /// </summary>
     public abstract class Pawn : MonoBehaviour
     {
         [SerializeField]
@@ -15,6 +18,18 @@ namespace PHC.Pawns
         /// This is not going to be the same as the position being displayed on screen.
         /// </summary>
         private Vector2 m_actualPosition;
+
+        /// <summary>
+        /// The Pawn size in diameter.
+        /// </summary>
+        public float m_pawnSizeDiameter = 1f;
+
+#if DEBUG
+        /// <summary>
+        /// The color of the Gizmo cube that's drawn on this Pawn.
+        /// </summary>
+        public Color m_gizmoCubeColor = Color.yellow;
+#endif
 
         /// <summary>
         /// The position of the pawn.
@@ -63,6 +78,50 @@ namespace PHC.Pawns
         {
             Position = transform.position;
         }
+
+#if DEBUG
+        public void OnDrawGizmos()
+        {
+            // Since padding from the local 0,0,0 of the Pawn.
+            // This is the center the cube on the Pawn.
+            float padding = (1f - m_pawnSizeDiameter) / 2f;
+
+            // The size of the cube
+            Vector3 size = new Vector3(m_pawnSizeDiameter, m_pawnSizeDiameter, m_pawnSizeDiameter);
+
+            #region Pixel Location Cube
+
+            // Get the position
+            Vector3 pos = PixelPosition;
+            // Add the padding.
+            pos += new Vector3(padding, padding, 0);
+            // Since Gizmo cubes are dawn from the center, add half the size in all directions.
+            pos += size / 2f;
+
+            // Darken the color of the next cube.
+            Color.RGBToHSV(m_gizmoCubeColor, out float hue, out float sat, out float vib);
+            vib *= 0.5f;
+            Gizmos.color = Color.HSVToRGB(hue, sat, vib);
+
+            Gizmos.DrawWireCube(pos, size);
+
+            #endregion
+
+            #region Absolute Location Cube
+
+            // Get the position
+            pos = Position;
+            // Add the padding.
+            pos += new Vector3(padding, padding, 0);
+            // Since Gizmo cubes are dawn from the center, add half the size in all directions.
+            pos += size / 2f;
+
+            Gizmos.color = m_gizmoCubeColor;
+            Gizmos.DrawWireCube(pos, size);
+
+            #endregion
+        }
+#endif
 
         /// <summary>
         /// Rounds the float to the nearest PPU.

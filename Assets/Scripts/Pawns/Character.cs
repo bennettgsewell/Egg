@@ -26,11 +26,6 @@ namespace PHC.Pawns
 
         public int CurrentHealth { private set; get; }
 
-        /// <summary>
-        /// The Pawn size in diameter.
-        /// </summary>
-        public float m_pawnSizeDiameter = (ForceGameboyAspectRatio.PPU - 4) / (float)ForceGameboyAspectRatio.PPU;
-
         // If set the chracter is holding this large item.
         private LargeItem m_holding = null;
 

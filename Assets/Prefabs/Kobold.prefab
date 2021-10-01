@@ -48,11 +48,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_audioSource: {fileID: 3617390158850198815}
+  m_pawnSizeDiameter: 0.75
+  m_gizmoCubeColor: {r: 0.016202092, g: 1, b: 0, a: 1}
   m_speed: 4.76
   m_pickupDistance: 1
   m_startingHealth: 6
-  m_pawnSizeDiameter: 0.75
-  m_animator: {fileID: 0}
   m_spritesNorth:
     m_idle: {fileID: 5360452925873143344, guid: bcc4560a78837b2419bb2eaced416ec0, type: 3}
     m_walk1: {fileID: 1594568054700828289, guid: bcc4560a78837b2419bb2eaced416ec0, type: 3}
