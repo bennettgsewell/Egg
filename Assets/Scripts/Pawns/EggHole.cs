@@ -19,7 +19,7 @@ namespace PHC.Pawns
 
         private float m_waitFor;
 
-        private void Start()
+        new private void Start()
         {
             base.Start();
 

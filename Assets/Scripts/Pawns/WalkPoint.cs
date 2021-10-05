@@ -17,7 +17,7 @@ namespace PHC.Pawns
             Position = new Vector2(Mathf.Floor(transform.position.x), Mathf.Floor(transform.position.y));
         }
 
-        private void Start()
+        new private void Start()
         {
             base.Start();
 

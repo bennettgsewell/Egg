@@ -69,7 +69,7 @@ namespace PHC.Pawns
         }
 
         // Map the inputs to their actions.
-        void Start()
+        new void Start()
         {
             base.Start();
 

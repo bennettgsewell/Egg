@@ -155,7 +155,7 @@ namespace PHC.Pawns
             CurrentState = MonsterState.STOP;
         }
 
-        protected void Start()
+        new protected void Start()
         {
             base.Start();
             StartIdling();
