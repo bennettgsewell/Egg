@@ -60,27 +60,15 @@ namespace PHC.Pawns
             Vector2 newPos = oldPos + destinationDelta;
 
             // Determine the direction the Character is moving in.
-            bool moving = false;
+            // TODO: Make function that determines Direction from Vector2.
             if (destinationDelta.x > 0)
-            {
-                moving = true;
                 FacingDirection = Direction.East;
-            }
             else if (destinationDelta.x < 0)
-            {
-                moving = true;
                 FacingDirection = Direction.West;
-            }
             else if (destinationDelta.y > 0)
-            {
-                moving = true;
                 FacingDirection = Direction.North;
-            }
             else if (destinationDelta.y < 0)
-            {
-                moving = true;
                 FacingDirection = Direction.South;
-            }
 
             // If the Character is on a Map make sure it's not moving into a wall.
             Map map = GameManager.Instance?.TheMap;
@@ -236,7 +224,7 @@ namespace PHC.Pawns
             }
         }
 
-        protected void Start()
+        new protected void Start()
         {
             base.Start();
 
