@@ -7,11 +7,11 @@ namespace PHC.Environment
     public class TileComp : TileTypeMono
     {
         [SerializeField]
-        private Tile m_tile;
+        private TileType m_tile;
 
         /// <summary>
         /// The Type of Tile this GameObject is.
         /// </summary>
-        public override Tile Tile => m_tile;
+        public override TileType Tile => m_tile;
     }
 }

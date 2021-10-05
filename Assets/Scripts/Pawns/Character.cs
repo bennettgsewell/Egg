@@ -85,12 +85,12 @@ namespace PHC.Pawns
                 {
                     case Direction.North:
                         // If the top left or top right of Pawn is inside a blocking tile.
-                        if(map.GetTile(new Location(newPosCenterOfTile + new Vector2(-pawnSizeRadius, pawnSizeRadius))) == Tile.Blocking
-                         || map.GetTile(new Location(newPosCenterOfTile + new Vector2(pawnSizeRadius, pawnSizeRadius))) == Tile.Blocking)
+                        if(map.GetTile(new Location(newPosCenterOfTile + new Vector2(-pawnSizeRadius, pawnSizeRadius))) == TileType.Blocking
+                         || map.GetTile(new Location(newPosCenterOfTile + new Vector2(pawnSizeRadius, pawnSizeRadius))) == TileType.Blocking)
                         {
                             // If the Tile directly above is open
                             Location tileDirectlyAbove = new Location(newPosCenterOfTile + new Vector2(0, pawnSizeRadius));
-                            if (map.GetTile(tileDirectlyAbove) == Tile.Empty)
+                            if (map.GetTile(tileDirectlyAbove) == TileType.Empty)
                             {
                                 // Get the point inside the current tile.
                                 float insideTile = newPosCenterOfTile.x % 1;
@@ -109,12 +109,12 @@ namespace PHC.Pawns
                         break;
                     case Direction.South:
                         // If the bottom left or bottom right of Pawn is inside a blocking tile.
-                        if (map.GetTile(new Location(newPosCenterOfTile + new Vector2(-pawnSizeRadius, -pawnSizeRadius))) == Tile.Blocking
-                         || map.GetTile(new Location(newPosCenterOfTile + new Vector2(pawnSizeRadius, -pawnSizeRadius))) == Tile.Blocking)
+                        if (map.GetTile(new Location(newPosCenterOfTile + new Vector2(-pawnSizeRadius, -pawnSizeRadius))) == TileType.Blocking
+                         || map.GetTile(new Location(newPosCenterOfTile + new Vector2(pawnSizeRadius, -pawnSizeRadius))) == TileType.Blocking)
                         {
                             // If the Tile directly below is open
                             Location tileDirectlyBelow = new Location(newPosCenterOfTile + new Vector2(0, -pawnSizeRadius));
-                            if (map.GetTile(tileDirectlyBelow) == Tile.Empty)
+                            if (map.GetTile(tileDirectlyBelow) == TileType.Empty)
                             {
                                 // Get the point inside the current tile.
                                 float insideTile = newPosCenterOfTile.x % 1;
@@ -133,12 +133,12 @@ namespace PHC.Pawns
                         break;
                     case Direction.East:
                         // If the top right or bottom right of Pawn is inside a blocking tile.
-                        if (map.GetTile(new Location(newPosCenterOfTile + new Vector2(pawnSizeRadius, pawnSizeRadius))) == Tile.Blocking
-                         || map.GetTile(new Location(newPosCenterOfTile + new Vector2(pawnSizeRadius, -pawnSizeRadius))) == Tile.Blocking)
+                        if (map.GetTile(new Location(newPosCenterOfTile + new Vector2(pawnSizeRadius, pawnSizeRadius))) == TileType.Blocking
+                         || map.GetTile(new Location(newPosCenterOfTile + new Vector2(pawnSizeRadius, -pawnSizeRadius))) == TileType.Blocking)
                         {
                             // If the Tile directly east is open
                             Location tileDirectlyEast = new Location(newPosCenterOfTile + new Vector2(pawnSizeRadius, 0));
-                            if (map.GetTile(tileDirectlyEast) == Tile.Empty)
+                            if (map.GetTile(tileDirectlyEast) == TileType.Empty)
                             {
                                 // Get the point inside the current tile.
                                 float insideTile = newPosCenterOfTile.y % 1;
@@ -157,12 +157,12 @@ namespace PHC.Pawns
                         break;
                     case Direction.West:
                         // If the top left or bottom left of Pawn is inside a blocking tile.
-                        if (map.GetTile(new Location(newPosCenterOfTile + new Vector2(-pawnSizeRadius, pawnSizeRadius))) == Tile.Blocking
-                         || map.GetTile(new Location(newPosCenterOfTile + new Vector2(-pawnSizeRadius, -pawnSizeRadius))) == Tile.Blocking)
+                        if (map.GetTile(new Location(newPosCenterOfTile + new Vector2(-pawnSizeRadius, pawnSizeRadius))) == TileType.Blocking
+                         || map.GetTile(new Location(newPosCenterOfTile + new Vector2(-pawnSizeRadius, -pawnSizeRadius))) == TileType.Blocking)
                         {
                             // If the Tile directly west is open
                             Location tileDirectlyEast = new Location(newPosCenterOfTile + new Vector2(-pawnSizeRadius, 0));
-                            if (map.GetTile(tileDirectlyEast) == Tile.Empty)
+                            if (map.GetTile(tileDirectlyEast) == TileType.Empty)
                             {
                                 // Get the point inside the current tile.
                                 float insideTile = newPosCenterOfTile.y % 1;

@@ -392,10 +392,10 @@ namespace PHC.Pawns
                                     nextTile.X--;
                                     break;
                             }
-                            Tile nextTileType = GameManager.Instance?.TheMap?.GetTile(nextTile) ?? Tile.Blocking;
+                            TileType nextTileType = GameManager.Instance?.TheMap?.GetTile(nextTile) ?? TileType.Blocking;
 
                             // If the randomly selected Tile is empty, path there.
-                            if (nextTileType == Tile.Empty)
+                            if (nextTileType == TileType.Empty)
                                 SetDestination(nextTile, 2);
 
                             // The amount of time to wait before choosing the next Tile to go to. This includes travel time.

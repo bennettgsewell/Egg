@@ -9,7 +9,7 @@ namespace PHC.Environment
         /// <summary>
         /// The Type of Tile this GameObject is.
         /// </summary>
-        public abstract Tile Tile { get; }
+        public abstract TileType Tile { get; }
 
         /// <summary>
         /// Returns the current Tile Location that this Pawn is on.

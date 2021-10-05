@@ -9,7 +9,7 @@ namespace PHC.Environment
     /// <summary>
     /// A tile on the map.
     /// </summary>
-    public enum Tile : byte
+    public enum TileType : byte
     {
         Empty = 0,
         Door = 1,

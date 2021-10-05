@@ -15,7 +15,7 @@ namespace PHC.Environment
         Sprite[] m_tileSprites;
 
         // The Tile types.
-        private Tile[,] m_mapTiles;
+        private TileType[,] m_mapTiles;
 
         // The GameObject for each tile.
         GameObject[,] m_mapTileGameObjects;
@@ -78,7 +78,7 @@ namespace PHC.Environment
 
                     Vector3Int size = tmap.size;
 
-                    m_mapTiles = new Tile[size.x, size.y];
+                    m_mapTiles = new TileType[size.x, size.y];
 
                     // Try and find the total size of the map so we can create an array.
                     for (int x = 1; x < size.x; x++)
@@ -89,7 +89,7 @@ namespace PHC.Environment
                             tilePos += tmap.origin;
                             TileBase tile = tmap.GetTile(tilePos);
                             //Debug.Log($"{tilePos}: {(tile == null ? "" : "WALL")}");
-                            Tile tileType = tile == null ? Tile.Empty : Tile.Blocking;
+                            TileType tileType = tile == null ? TileType.Empty : TileType.Blocking;
 
                             m_mapTiles[x, y] = tileType;
                         }
@@ -117,7 +117,7 @@ namespace PHC.Environment
         /// </summary>
         private void CreateTileGameObject(Location pos)
         {
-            Tile tileType = m_mapTiles[pos.X, pos.Y];
+            TileType tileType = m_mapTiles[pos.X, pos.Y];
 
             // Get the Sprite from its array locaiton.
             Sprite sprite = m_tileSprites[(int)tileType];
@@ -136,25 +136,25 @@ namespace PHC.Environment
         /// <summary>
         /// Gets the Tile in this location.
         /// </summary>
-        public Tile GetTile(Location pos)
+        public TileType GetTile(Location pos)
         {
             // If there's no map there's nothing to calculate.
             if (m_mapTiles == null)
-                return Tile.Empty;
+                return TileType.Empty;
 
             // If the position is out of bounds, return blocking.
             if (pos.X < 0 || pos.Y < 0
                 || pos.X >= m_mapTiles.GetLongLength(0) || pos.Y >= m_mapTiles.GetLongLength(1))
-                return Tile.Blocking;
+                return TileType.Blocking;
 
-            Tile t = m_mapTiles[pos.X, pos.Y];
+            TileType t = m_mapTiles[pos.X, pos.Y];
 
-            if (t == Tile.Door)
+            if (t == TileType.Door)
             {
                 Door door = Door.IsTileDoor(pos);
                 if (door == null)
-                    return Tile.Blocking;
-                return door.IsOpen ? Tile.Empty : Tile.Blocking;
+                    return TileType.Blocking;
+                return door.IsOpen ? TileType.Empty : TileType.Blocking;
             }
 
             return t;
@@ -229,7 +229,7 @@ namespace PHC.Environment
         private void GenerateAStarDistances(Location current, int distance, ushort[,] distances, Location target)
         {
             // The Tile must be valid.
-            if (GetTile(current) != Tile.Empty)
+            if (GetTile(current) != TileType.Empty)
                 return;
 
             if (distance < distances[current.X, current.Y])

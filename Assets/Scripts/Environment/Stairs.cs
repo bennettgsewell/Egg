@@ -12,7 +12,7 @@ namespace PHC.Environment
             Descending,
         }
 
-        public override Tile Tile => Tile.Empty;
+        public override TileType Tile => TileType.Empty;
 
         public StairDirection m_direction;
     }
