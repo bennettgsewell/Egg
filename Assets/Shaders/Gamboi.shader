@@ -85,10 +85,10 @@ Shader "Sprites/Gamboi"
 	CBUFFER_END
 
 		// Material Color.
-		fixed4 _GameboiColor1 = (0,0,0,0);
-		fixed4 _GameboiColor2 = (0.33,0.33,0.33,0.4);
-		fixed4 _GameboiColor3 = (0.66,0.66,0.66,0.8);
-		fixed4 _GameboiColor4 = (1,1,1,1);
+		fixed4 _GameboiColor1;
+		fixed4 _GameboiColor2;
+		fixed4 _GameboiColor3;
+		fixed4 _GameboiColor4;
 
 		struct appdata_t
 		{

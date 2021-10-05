@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Gameboi
-  m_Shader: {fileID: 4800000, guid: d24a68d539e507c49956cf7ba42df589, type: 3}
+  m_Name: Gameboi Global
+  m_Shader: {fileID: 4800000, guid: 39dc208bc34fda342a3ef4f83d6b25e4, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -29,6 +29,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _EnableExternalAlpha: 0
+    - _GameboiColor1: 0
     m_Colors:
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _GameboiColor1: {r: 0, g: 0, b: 0, a: 1}

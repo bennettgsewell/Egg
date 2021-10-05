@@ -65,7 +65,6 @@ namespace PHC.Environment
         /// </summary>
         public Map()
         {
-#if TileMap
             // Get all of the Tile GameObjects in the scene.
             TileTypeMono[] allTileObjects = GameObject.FindObjectsOfType<TileTypeMono>();
 
@@ -111,46 +110,6 @@ namespace PHC.Environment
                     }
                 }
             }
-
-#else
-            // Get all of the Tile GameObjects in the scene.
-            TileTypeMono[] allTileObjects = GameObject.FindObjectsOfType<TileTypeMono>();
-
-            // Try and find the total size of the map so we can create an array.
-            Location size = new Location(0, 0);
-
-            // Iterate through all of the Tile objects in the Scene
-            foreach (TileTypeMono eachTile in allTileObjects)
-            {
-                // Figure out the size of the map.
-                // Round the position to the nearest grid point, just in case the level designer makes a mistake.
-                Vector3 position = eachTile.transform.position.Round();
-
-                eachTile.transform.position = position;
-
-                if (size.X < position.x)
-                    size.X = (long)position.x;
-
-                if (size.Y < position.y)
-                    size.Y = (long)position.y;
-            }
-
-            m_mapTiles = new Tile[size.X + 1, size.Y + 1];
-
-            foreach (TileTypeMono eachTile in allTileObjects)
-            {
-                Location tileLoc = new Location(eachTile.transform.position);
-
-                if (tileLoc.X < 0 || tileLoc.Y < 0)
-                {
-                    GameObject.Destroy(eachTile.gameObject);
-                }
-                else
-                {
-                    m_mapTiles[tileLoc.X, tileLoc.Y] = eachTile.Tile;
-                }
-            }
-#endif
         }
 
         /// <summary>

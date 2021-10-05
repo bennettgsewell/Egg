@@ -51,6 +51,7 @@ namespace PHC
 
         private void Start()
         {
+            // Make sure there's only one instance of GameManager in the game.
             if (m_instanceOneTime)
             {
                 if (Instance != null)
@@ -71,7 +72,8 @@ namespace PHC
             {
                 GameboiTheme.s_defaultGameboyTheme.ApplyColorTheme(3);
 
-                MapLoaded();
+                TheMap = null;
+                SetMusic(m_gameMusic);
             }
             else
             {
@@ -159,12 +161,6 @@ namespace PHC
             }
 
             Start();
-        }
-
-        private void MapLoaded()
-        {
-            TheMap = null;
-            SetMusic(m_gameMusic);
         }
 
         public void SetMusic(AudioClip track)
