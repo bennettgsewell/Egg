@@ -6,6 +6,12 @@
 
 Unity 2020.3.19f1
 
+![image](https://user-images.githubusercontent.com/33234246/172004532-13890701-90f5-41c1-8564-a3b98debb10f.png)
+
+![image](https://user-images.githubusercontent.com/33234246/172004540-9040b7bb-3c64-43be-8b18-2758b687626d.png) ![image](https://user-images.githubusercontent.com/33234246/172004542-7a979c93-e807-4ce9-b3de-68f9b530d4bd.png)
+
+
+
 ## Game Description
 Opening the pause menu will not actually pause the game.
 
